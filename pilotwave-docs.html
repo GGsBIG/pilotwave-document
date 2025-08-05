@@ -313,7 +313,7 @@
 
         .step-text-content {
             flex: 0 0 auto;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
@@ -325,14 +325,12 @@
         }
 
         .step-image {
-            position: absolute;
-            top: 120px;
-            left: 20px;
-            right: 20px;
+            position: relative;
             text-align: left;
             opacity: 0;
             transform: translateX(30px);
             transition: opacity 0.4s ease, transform 0.4s ease;
+            margin: 5px 0 0 0;
         }
 
         .step-image.active {
@@ -368,12 +366,12 @@
         .step-header h1 {
             color: #333;
             font-size: 35px;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             font-weight: bold;
         }
 
         .step-progress {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .current-step {
@@ -402,7 +400,6 @@
         .step-content {
             height: auto;
             min-height: 500px;
-            padding: 20px 20px 100px 20px;
             background-color: transparent;
             border-radius: 0;
             box-shadow: none;
@@ -415,15 +412,15 @@
         .step-content h4 {
             color: #333;
             font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             font-weight: bold;
         }
 
         .step-content p {
             font-size: 19px;
-            line-height: 1.6;
+            line-height: 1.3;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             font-weight: bold;
         }
 
@@ -460,24 +457,22 @@
         }
 
         .step-navigation {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+            position: relative;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             background-color: transparent;
             padding: 0;
             border-radius: 0;
             box-shadow: none;
             z-index: 1000;
-            gap: 80px;
+            margin-top: -10px;
         }
         
         .next-btn {
             background-color: #dc3545;
             color: white;
+            margin-right: 247px;
         }
 
         @media (max-width: 768px) {
@@ -495,20 +490,21 @@
         }
 
         .nav-btn {
-            padding: 16px 30px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 150px;
+            width: 120px;
             text-align: center;
         }
 
         .prev-btn {
             background-color: #6c757d;
             color: white;
+            margin-left: 0px;
         }
 
         .prev-btn:hover:not(:disabled) {
@@ -734,8 +730,7 @@
                 content: `
                     <div class="step-text-content">
                         <h4>Step 4: Fill Repository URL</h4>
-                        <p>Fill in the Repository URL with: <code>https://grafana.github.io/helm-charts</code></p>
-                        <p>Click Add Repository</p>
+                        <p>Fill in the Repository URL with: <code>https://grafana.github.io/helm-charts</code>, Click Add Repository</p>
                     </div>
                     </div>
                     <div class="step-image">
@@ -773,9 +768,7 @@
                 content: `
                     <div class="step-text-content">
                         <h4>Step 7: Configure Release</h4>
-                    <p>Fill in the Release Name</p>
-                    <p>Choose whether to create namespace</p>
-                    <p>Click Load Default Values</p>
+                    <p>Fill in the Release Name, Choose whether to create namespace, Click Load Default Values</p>
                     </div>
                     <div class="step-image">
                         <img src="grafana-images/grafana-step-08.png" alt="Grafana Step 8" />
@@ -955,9 +948,7 @@
                 content: `
                     <div class="step-text-content">
                         <h4>Step 22: Search for Grafana Secret</h4>
-                    <p>Return to the Pilotwave web interface</p>
-                    <p>Press the <kbd>/</kbd> key to search for <code>grafana</code></p>
-                    <p>Click on grafana Secret</p>
+                    <p>Return to the Pilotwave web interface, Press the <kbd>/</kbd> key to search for <code>grafana</code>, Click on grafana Secret</p>
                     </div>
                     <div class="step-image">
                         <img src="grafana-images/grafana-step-29.png" alt="Grafana Step 29" />
@@ -993,11 +984,7 @@
                 content: `
                     <div class="step-text-content">
                         <h4>Step 25: Enter Login Credentials</h4>
-                    <p>Fill in the login credentials:</p>
-                    <ul>
-                        <li>Email or username: <code>admin</code></li>
-                        <li>Password: [paste the copied grafana password]</li>
-                    </ul>
+                    <p>Fill in the login credentials: Email or username: <code>admin</code>, Password: [paste the copied grafana password]</p>
                     </div>
                     <div class="step-image">
                         <img src="grafana-images/grafana-step-32.png" alt="Grafana Step 32" />
