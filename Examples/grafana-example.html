@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafana via Helm - Pilotwave + Documentation</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">P+</div>
+            <span class="logo-text">Pilotwave +</span>
+        </div>
+        <div class="context-info">
+            <span class="context-label">Current context: </span>
+            <span class="context-value">Grafana Example</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Documentation</h3>
+            </div>
+            <div class="sidebar-sections">
+                <div class="sidebar-item" onclick="window.location.href='../Installation/installation.html'">
+                    <span class="sidebar-title">Installation</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Cluster/cluster.html'">
+                    <span class="sidebar-title">Cluster</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../ServiceMesh/service-mesh.html'">
+                    <span class="sidebar-title">Service Mesh</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Extensions/extensions.html'">
+                    <span class="sidebar-title">Extensions</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item active expanded">
+                    <span class="sidebar-title">Examples</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-subitems expanded">
+                    <div class="sidebar-subitem active">
+                        <span class="sidebar-title">Grafana via Helm</span>
+                    </div>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Migration/migration.html'">
+                    <span class="sidebar-title">Migration</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../FAQ/faq.html'">
+                    <span class="sidebar-title">FAQ</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="step-by-step-container">
+                <div class="step-header">
+                    <h1>Pilotwave helm deploy & upgrade grafana</h1>
+                    <div class="step-progress">
+                        <span class="current-step">Step <span id="current-step-number">1</span> of 27</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step-content">
+                    <!-- Step content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="grafana-steps.js"></script>
+</body>
+</html>

@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilotwave + Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DFKai-SB', '標楷體', 'BiauKai', 'Kai', serif;
+            background-color: #f5f5f5;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            color: #333;
+            padding: 12px 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .context-info {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .context-value {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            border-right: 1px solid #e0e0e0;
+            box-shadow: 2px 0 4px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sidebar-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #424242;
+        }
+
+        .sidebar-sections {
+            padding: 8px 0;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            gap: 12px;
+        }
+
+        .sidebar-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .sidebar-item.active {
+            background-color: #fff5f5;
+            border-left-color: #dc3545;
+            color: #dc3545;
+        }
+
+
+        .sidebar-title {
+            flex: 1;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .sidebar-arrow {
+            font-size: 10px;
+            color: #bdbdbd;
+            transition: transform 0.2s ease;
+        }
+
+        .sidebar-item.active .sidebar-arrow {
+            transform: rotate(90deg);
+            color: #dc3545;
+        }
+
+        .sidebar-item.expanded .sidebar-arrow {
+            transform: rotate(90deg);
+        }
+
+        .sidebar-item.expanded.active {
+            background-color: #fff5f5;
+            border-left-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .sidebar-subitems {
+            display: none;
+            padding-left: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar-subitems.expanded {
+            display: block;
+        }
+
+        .sidebar-subitem {
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 17px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .sidebar-subitem:hover {
+            background-color: #e9ecef;
+        }
+
+        .sidebar-subitem.active {
+            background-color: #fff5f5;
+            color: #dc3545;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .content-header {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .content-header h1 {
+            font-size: 39px;
+            font-weight: bold;
+            color: #212121;
+            margin-bottom: 8px;
+        }
+
+        .content-subtitle {
+            font-size: 21px;
+            color: #757575;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .content-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        .content-placeholder {
+            background-color: #fff5f5;
+            border: 2px dashed #fecaca;
+            border-radius: 8px;
+            padding: 48px 24px;
+            text-align: center;
+            color: #dc3545;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Installation Content Styles */
+        .installation-content {
+            max-width: 800px;
+        }
+
+        .installation-content h1 {
+            color: #333;
+            font-size: 35px;
+            margin-bottom: 32px;
+            font-weight: bold;
+        }
+
+        .installation-content h3 {
+            color: #333;
+            font-size: 23px;
+            margin-bottom: 24px;
+            font-weight: bold;
+        }
+
+        .installation-content h4 {
+            color: #333;
+            font-size: 24px;
+            margin: 24px 0 12px 0;
+            font-weight: bold;
+        }
+
+        .installation-content p {
+            margin: 8px 0;
+            line-height: 1.6;
+            color: #333;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .installation-content ul {
+            margin: 8px 0;
+            padding-left: 24px;
+        }
+
+        .installation-content li {
+            margin: 4px 0;
+            line-height: 1.6;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .installation-content code {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'DFKai-SB', monospace;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .installation-content kbd {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'DFKai-SB', monospace;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .installation-content strong {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .step-image {
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .step-text-content {
+            flex: 0 0 auto;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+        }
+
+        .step-text-content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-image {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            right: 20px;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .step-image.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step-image img {
+            width: 91%;
+            height: auto;
+            max-width: 913px;
+        }
+
+        @media (max-width: 768px) {
+            .step-image img {
+                width: 126.75%;
+                max-width: 608px;
+            }
+        }
+
+        /* Step-by-Step Interface */
+        .step-by-step-container {
+            max-width: 1200px;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .step-header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .step-header h1 {
+            color: #333;
+            font-size: 35px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .step-progress {
+            margin-bottom: 20px;
+        }
+
+        .current-step {
+            font-size: 18px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #dc3545;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .step-content {
+            height: auto;
+            min-height: 500px;
+            padding: 20px 20px 100px 20px;
+            background-color: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .step-content h4 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .step-content p {
+            font-size: 19px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .step-content ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .step-content li {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .step-content code {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'DFKai-SB', monospace;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .step-content kbd {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'DFKai-SB', monospace;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .step-navigation {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+            z-index: 1000;
+            gap: 80px;
+        }
+        
+        .next-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .step-navigation {
+                bottom: 20px;
+                gap: 50px;
+            }
+            
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                width: 120px;
+                text-align: center;
+            }
+        }
+
+        .nav-btn {
+            padding: 16px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 150px;
+            text-align: center;
+        }
+
+        .prev-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .prev-btn:hover:not(:disabled) {
+            background-color: #5a6268;
+        }
+
+
+        .next-btn:hover {
+            background-color: #c82333;
+        }
+
+        .nav-btn:disabled {
+            background-color: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .content-area {
+                margin: 16px 16px 0 16px;
+                padding: 24px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">P+</div>
+            <span class="logo-text">Pilotwave +</span>
+        </div>
+        <div class="context-info">
+            <span class="context-label">Current context: </span>
+            <span class="context-value">Documentation</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Documentation</h3>
+            </div>
+            <div class="sidebar-sections">
+                <div class="sidebar-item" onclick="toggleSection('installation')">
+                    <span class="sidebar-title">Installation</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="toggleSection('cluster')">
+                    <span class="sidebar-title">Cluster</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="toggleSection('service-mesh')">
+                    <span class="sidebar-title">Service Mesh</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="toggleSection('extensions')">
+                    <span class="sidebar-title">Extensions</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item active expanded" onclick="toggleSection('examples')">
+                    <span class="sidebar-title">Examples</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-subitems expanded">
+                    <div class="sidebar-subitem active" onclick="showSubSection('examples', 'grafana')">
+                        <span class="sidebar-title">Grafana via Helm</span>
+                    </div>
+                </div>
+                <div class="sidebar-item" onclick="toggleSection('migration')">
+                    <span class="sidebar-title">Migration</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="toggleSection('faq')">
+                    <span class="sidebar-title">FAQ</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div id="installation" class="content-section">
+                <h2>Installation</h2>
+                <div class="content-placeholder">
+                    <p>Installation content will be displayed here...</p>
+                </div>
+            </div>
+
+            <div id="cluster" class="content-section">
+                <h2>Cluster Management</h2>
+                <div class="content-placeholder">
+                    <p>Cluster management content will be displayed here...</p>
+                </div>
+            </div>
+
+            <div id="service-mesh" class="content-section">
+                <h2>Service Mesh</h2>
+                <div class="content-placeholder">
+                    <p>Service mesh content will be displayed here...</p>
+                </div>
+            </div>
+
+            <div id="extensions" class="content-section">
+                <h2>Extensions</h2>
+                <div class="content-placeholder">
+                    <p>Extensions content will be displayed here...</p>
+                </div>
+            </div>
+
+            <div id="examples" class="content-section active">
+                <div class="step-by-step-container">
+                    <div class="step-header">
+                        <h1>Pilotwave helm deploy & upgrade grafana</h1>
+                        <div class="step-progress">
+                            <span class="current-step">Step <span id="current-step-number">1</span> of 27</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-content" id="step-content">
+                        <!-- Step content will be populated by JavaScript -->
+                    </div>
+
+                    <div class="step-navigation">
+                        <button class="nav-btn prev-btn" id="prev-btn" onclick="previousStep()" disabled>
+                            ← Previous
+                        </button>
+                        <button class="nav-btn next-btn" id="next-btn" onclick="nextStep()">
+                            Next →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="migration" class="content-section">
+                <h2>Migration</h2>
+                <div class="content-placeholder">
+                    <p>Migration content will be displayed here...</p>
+                </div>
+            </div>
+
+            <div id="faq" class="content-section">
+                <h2>FAQ</h2>
+                <div class="content-placeholder">
+                    <p>FAQ content will be displayed here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Step-by-step data - one action per step
+        const steps = [
+            {
+                title: "Step 1: Access Helm App Store",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 1: Access Helm App Store</h4>
+                        <p>Enter the initial page and click on Helm App Store</p>
+                    </div>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-01.png" alt="Grafana Step 1" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 2: Navigate to Helm Charts",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 2: Navigate to Helm Charts</h4>
+                        <p>Click on the dropdown menu of Helm App Store and select Helm Charts</p>
+                    </div>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-03.png" alt="Grafana Step 3" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 3: Click Add Repository",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 3: Click Add Repository</h4>
+                        <p>Click Add Repository in the top right corner</p>
+                    </div>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-04.png" alt="Grafana Step 4" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 4: Fill Repository URL",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 4: Fill Repository URL</h4>
+                        <p>Fill in the Repository URL with: <code>https://grafana.github.io/helm-charts</code></p>
+                        <p>Click Add Repository</p>
+                    </div>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-05.png" alt="Grafana Step 5" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 5: Select Grafana Chart",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 5: Select Grafana Chart</h4>
+                        <p>Click on helm-charts/grafana</p>
+                    </div>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-06.png" alt="Grafana Step 6" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 6: Deploy Chart",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 6: Deploy Chart</h4>
+                    <p>Click Deploy Chart</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-07.png" alt="Grafana Step 7" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 7: Configure Release",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 7: Configure Release</h4>
+                    <p>Fill in the Release Name</p>
+                    <p>Choose whether to create namespace</p>
+                    <p>Click Load Default Values</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-08.png" alt="Grafana Step 8" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 8: Deploy Success",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 8: Deploy Success</h4>
+                    <p>Click Deploy Chart → Deployed Success</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-09.png" alt="Grafana Step 9" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 9: Close Dialog",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 9: Close Dialog</h4>
+                    <p>Close the dialog by clicking the X in the top right corner</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-10.png" alt="Grafana Step 10" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 10: Access Helm Releases",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 10: Access Helm Releases</h4>
+                    <p>Click Helm Releases</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-11.png" alt="Grafana Step 11" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 11: Select Grafana Entry",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 11: Select Grafana Entry</h4>
+                    <p>Click on the grafana entry</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-12.png" alt="Grafana Step 12" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 12: Click Upgrade",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 12: Click Upgrade</h4>
+                    <p>Click upgrade</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-13.png" alt="Grafana Step 13" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 13: Select Chart to Upgrade",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 13: Select Chart to Upgrade</h4>
+                    <p>Click Select Chart to Upgrade To, choose helm-charts/grafana (helm-charts)</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-15.png" alt="Grafana Step 15" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 14: Load Current Values",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 14: Load Current Values</h4>
+                    <p>Click Load Current Values</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-16.png" alt="Grafana Step 16" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 15: Search for ClusterIP",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 15: Search for ClusterIP</h4>
+                    <p>In the Values (YAML) section, press <kbd>Cmd + F</kbd> to search for <code>ClusterIP</code></p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-18.png" alt="Grafana Step 18" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 16: Change to NodePort",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 16: Change to NodePort</h4>
+                    <p>Change <code>ClusterIP</code> to <code>NodePort</code></p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-19.png" alt="Grafana Step 19" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 17: Upgrade Release",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 17: Upgrade Release</h4>
+                    <p>Click Upgrade Release</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-20.png" alt="Grafana Step 20" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 18: Navigate to Services",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 18: Navigate to Services</h4>
+                    <p>Click on Network in the left sidebar, then click Services</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-23.png" alt="Grafana Step 23" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 19: Search Services",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 19: Search Services</h4>
+                    <p>Click the magnifying glass icon to search</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-24.png" alt="Grafana Step 24" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 20: Find Grafana NodePort",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 20: Find Grafana NodePort</h4>
+                    <p>Enter <code>grafana</code> to see which NodePort the Grafana interface is using</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-26.png" alt="Grafana Step 26" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 21: Access Grafana Web Interface",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 21: Access Grafana Web Interface</h4>
+                    <p>Access the Grafana web interface at: <code>$ClusterIP:$NodePort</code></p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-27.png" alt="Grafana Step 27" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 22: Search for Grafana Secret",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 22: Search for Grafana Secret</h4>
+                    <p>Return to the Pilotwave web interface</p>
+                    <p>Press the <kbd>/</kbd> key to search for <code>grafana</code></p>
+                    <p>Click on grafana Secret</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-29.png" alt="Grafana Step 29" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 23: Show Decoded Password",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 23: Show Decoded Password</h4>
+                    <p>Click Show Decoded</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-30.png" alt="Grafana Step 30" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 24: Copy Password",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 24: Copy Password</h4>
+                    <p>Copy the grafana password</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-31.png" alt="Grafana Step 31" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 25: Enter Login Credentials",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 25: Enter Login Credentials</h4>
+                    <p>Fill in the login credentials:</p>
+                    <ul>
+                        <li>Email or username: <code>admin</code></li>
+                        <li>Password: [paste the copied grafana password]</li>
+                    </ul>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-32.png" alt="Grafana Step 32" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 26: Login Success",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 26: Login Success</h4>
+                    <p>Login Success - You can now access Grafana!</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-33.png" alt="Grafana Step 33" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 27: Grafana Dashboard",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 27: Grafana Dashboard</h4>
+                    <p>Welcome to Grafana! You have successfully deployed and accessed Grafana via Pilotwave.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="grafana-images/grafana-step-34.png" alt="Grafana Step 34" />
+                    </div>
+                `
+            }
+        ];
+
+        let currentStep = 0;
+
+        function updateStep() {
+            // Update step content
+            document.getElementById('step-content').innerHTML = steps[currentStep].content;
+            
+            // Add active class to trigger animations after a short delay
+            setTimeout(() => {
+                const textContent = document.querySelector('.step-text-content');
+                const imageContent = document.querySelector('.step-image');
+                
+                if (textContent) textContent.classList.add('active');
+                if (imageContent) imageContent.classList.add('active');
+            }, 50);
+            
+            // Update step number and progress
+            document.getElementById('current-step-number').textContent = currentStep + 1;
+            const progressPercent = ((currentStep + 1) / steps.length) * 100;
+            document.getElementById('progress-fill').style.width = progressPercent + '%';
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentStep === 0;
+            document.getElementById('next-btn').disabled = currentStep === steps.length - 1;
+            
+            if (currentStep === steps.length - 1) {
+                document.getElementById('next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('next-btn').textContent = 'Next →';
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateStep();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateStep();
+            }
+        }
+
+        // Initialize first step
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStep();
+        });
+
+        function toggleSection(sectionId) {
+            const sidebarItem = event.currentTarget;
+            const subitems = sidebarItem.nextElementSibling;
+            
+            // First, close all other sections
+            closeAllOtherSections(sectionId);
+            
+            if (subitems && subitems.classList.contains('sidebar-subitems')) {
+                // Toggle expanded state
+                sidebarItem.classList.toggle('expanded');
+                subitems.classList.toggle('expanded');
+                
+                // Handle active state properly
+                if (sidebarItem.classList.contains('expanded')) {
+                    // When expanding, add active state
+                    sidebarItem.classList.add('active');
+                } else {
+                    // When collapsing, remove active state and background
+                    sidebarItem.classList.remove('active');
+                    // Also remove active from subitems
+                    const activeSubitems = subitems.querySelectorAll('.sidebar-subitem.active');
+                    activeSubitems.forEach(subitem => {
+                        subitem.classList.remove('active');
+                    });
+                }
+            } else {
+                // If no subitems, show the section directly
+                showSection(sectionId);
+            }
+        }
+
+        function closeAllOtherSections(currentSectionId) {
+            const allSidebarItems = document.querySelectorAll('.sidebar-item');
+            const allSubitems = document.querySelectorAll('.sidebar-subitems');
+            
+            allSidebarItems.forEach(item => {
+                const itemText = item.querySelector('.sidebar-title').textContent.toLowerCase();
+                const itemId = itemText.replace(/\s+/g, '-');
+                
+                if (itemId !== currentSectionId) {
+                    item.classList.remove('active', 'expanded');
+                }
+            });
+            
+            allSubitems.forEach(subitems => {
+                const parentItem = subitems.previousElementSibling;
+                const parentText = parentItem.querySelector('.sidebar-title').textContent.toLowerCase();
+                const parentId = parentText.replace(/\s+/g, '-');
+                
+                if (parentId !== currentSectionId) {
+                    subitems.classList.remove('expanded');
+                    // Remove active from all subitems
+                    const activeSubitems = subitems.querySelectorAll('.sidebar-subitem.active');
+                    activeSubitems.forEach(subitem => {
+                        subitem.classList.remove('active');
+                    });
+                }
+            });
+        }
+
+        function showSubSection(mainSection, subSection) {
+            // Show the main section content
+            showSection(mainSection);
+            
+            // Update subsection active state
+            const subItems = document.querySelectorAll('.sidebar-subitem');
+            subItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            
+            // You can add logic here to show specific subsection content
+            // For now, it shows the main section (examples for grafana)
+        }
+
+        function showSection(sectionId) {
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected content section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Close all other sections first
+            if (event && event.currentTarget) {
+                closeAllOtherSections(sectionId);
+            }
+
+            // Add active class to the clicked item (if it's a direct section)
+            if (event && event.currentTarget && event.currentTarget.classList.contains('sidebar-item')) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
