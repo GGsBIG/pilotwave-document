@@ -437,12 +437,12 @@
         }
 
         .step-content code {
-            background-color: #f8f9fa;
+            background-color: transparent;
             color: #333;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Consolas', 'DFKai-SB', monospace;
-            font-size: 18px;
+            padding: 0;
+            border-radius: 0;
+            font-family: 'DFKai-SB', '標楷體', 'BiauKai', 'Kai', serif;
+            font-size: 19px;
             font-weight: bold;
         }
 
@@ -534,7 +534,41 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1400px) {
+            html {
+                font-size: 90%;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            html {
+                font-size: 85%;
+            }
+            
+            .step-by-step-container {
+                max-width: 1000px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            html {
+                font-size: 80%;
+            }
+            
+            .step-by-step-container {
+                max-width: 900px;
+            }
+            
+            .step-image img {
+                width: 95%;
+            }
+        }
+        
         @media (max-width: 768px) {
+            html {
+                font-size: 75%;
+            }
+            
             .main-content {
                 flex-direction: column;
             }
@@ -553,6 +587,63 @@
                 flex-direction: column;
                 gap: 12px;
                 text-align: center;
+            }
+            
+            .step-by-step-container {
+                max-width: 100%;
+                padding: 15px;
+            }
+            
+            .step-image img {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            html {
+                font-size: 70%;
+            }
+            
+            .nav-btn {
+                width: 100px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            
+            .step-navigation {
+                margin-top: -15px;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            html {
+                font-size: 65%;
+            }
+            
+            .step-header h1 {
+                font-size: 28px;
+                margin-bottom: 5px;
+            }
+            
+            .step-content {
+                min-height: 350px;
+            }
+            
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-height: 700px) {
+            .step-content {
+                min-height: 400px;
+            }
+        }
+        
+        @media (max-height: 800px) {
+            .step-content {
+                min-height: 450px;
             }
         }
     </style>
@@ -597,7 +688,7 @@
                 </div>
                 <div class="sidebar-subitems expanded">
                     <div class="sidebar-subitem active" onclick="showSubSection('examples', 'grafana')">
-                        <span class="sidebar-title">Grafana via Helm</span>
+                        <span class="sidebar-title">Deploy & Upgrade Grafana</span>
                     </div>
                 </div>
                 <div class="sidebar-item" onclick="toggleSection('migration')">
@@ -645,7 +736,7 @@
                     <div class="step-header">
                         <h1>Pilotwave helm deploy & upgrade grafana</h1>
                         <div class="step-progress">
-                            <span class="current-step">Step <span id="current-step-number">1</span> of 27</span>
+                            <span class="current-step">Step <span id="current-step-number">1</span> of 26</span>
                             <div class="progress-bar">
                                 <div class="progress-fill" id="progress-fill"></div>
                             </div>
@@ -695,7 +786,7 @@
                     </div>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-01.png" alt="Grafana Step 1" />
+                        <img src="images/grafana-images/grafana-step-01.png" alt="Grafana Step 1" />
                     </div>
                 `
             },
@@ -708,7 +799,7 @@
                     </div>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-03.png" alt="Grafana Step 3" />
+                        <img src="images/grafana-images/grafana-step-02.png" alt="Grafana Step 3" />
                     </div>
                 `
             },
@@ -721,7 +812,7 @@
                     </div>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-04.png" alt="Grafana Step 4" />
+                        <img src="images/grafana-images/grafana-step-03.png" alt="Grafana Step 4" />
                     </div>
                 `
             },
@@ -734,7 +825,7 @@
                     </div>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-05.png" alt="Grafana Step 5" />
+                        <img src="images/grafana-images/grafana-step-04.png" alt="Grafana Step 5" />
                     </div>
                 `
             },
@@ -747,7 +838,7 @@
                     </div>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-06.png" alt="Grafana Step 6" />
+                        <img src="images/grafana-images/grafana-step-05.png" alt="Grafana Step 6" />
                     </div>
                 `
             },
@@ -759,7 +850,7 @@
                     <p>Click Deploy Chart</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-07.png" alt="Grafana Step 7" />
+                        <img src="images/grafana-images/grafana-step-06.png" alt="Grafana Step 7" />
                     </div>
                 `
             },
@@ -768,10 +859,10 @@
                 content: `
                     <div class="step-text-content">
                         <h4>Step 7: Configure Release</h4>
-                    <p>Fill in the Release Name, Choose whether to create namespace, Click Load Default Values</p>
+                    <p>Fill in the Release Name, Choose whether to create namespace, Click Load Default Values, Click Deploy Chart</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-08.png" alt="Grafana Step 8" />
+                        <img src="images/grafana-images/grafana-step-07.png" alt="Grafana Step 8" />
                     </div>
                 `
             },
@@ -780,10 +871,10 @@
                 content: `
                     <div class="step-text-content">
                         <h4>Step 8: Deploy Success</h4>
-                    <p>Click Deploy Chart → Deployed Success</p>
+                    <p>Deployed Successfully</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-09.png" alt="Grafana Step 9" />
+                        <img src="images/grafana-images/grafana-step-08.png" alt="Grafana Step 9" />
                     </div>
                 `
             },
@@ -795,7 +886,7 @@
                     <p>Close the dialog by clicking the X in the top right corner</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-10.png" alt="Grafana Step 10" />
+                        <img src="images/grafana-images/grafana-step-09.png" alt="Grafana Step 10" />
                     </div>
                 `
             },
@@ -807,7 +898,7 @@
                     <p>Click Helm Releases</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-11.png" alt="Grafana Step 11" />
+                        <img src="images/grafana-images/grafana-step-10.png" alt="Grafana Step 11" />
                     </div>
                 `
             },
@@ -819,7 +910,7 @@
                     <p>Click on the grafana entry</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-12.png" alt="Grafana Step 12" />
+                        <img src="images/grafana-images/grafana-step-11.png" alt="Grafana Step 12" />
                     </div>
                 `
             },
@@ -831,7 +922,7 @@
                     <p>Click upgrade</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-13.png" alt="Grafana Step 13" />
+                        <img src="images/grafana-images/grafana-step-12.png" alt="Grafana Step 13" />
                     </div>
                 `
             },
@@ -843,7 +934,7 @@
                     <p>Click Select Chart to Upgrade To, choose helm-charts/grafana (helm-charts)</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-15.png" alt="Grafana Step 15" />
+                        <img src="images/grafana-images/grafana-step-13.png" alt="Grafana Step 15" />
                     </div>
                 `
             },
@@ -855,7 +946,7 @@
                     <p>Click Load Current Values</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-16.png" alt="Grafana Step 16" />
+                        <img src="images/grafana-images/grafana-step-14.png" alt="Grafana Step 16" />
                     </div>
                 `
             },
@@ -867,7 +958,7 @@
                     <p>In the Values (YAML) section, press <kbd>Cmd + F</kbd> to search for <code>ClusterIP</code></p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-18.png" alt="Grafana Step 18" />
+                        <img src="images/grafana-images/grafana-step-15.png" alt="Grafana Step 18" />
                     </div>
                 `
             },
@@ -876,142 +967,130 @@
                 content: `
                     <div class="step-text-content">
                         <h4>Step 16: Change to NodePort</h4>
-                    <p>Change <code>ClusterIP</code> to <code>NodePort</code></p>
+                    <p>Replace <code>ClusterIP</code> to <code>NodePort</code>, Click Upgrade Release</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-19.png" alt="Grafana Step 19" />
+                        <img src="images/grafana-images/grafana-step-16.png" alt="Grafana Step 19" />
                     </div>
                 `
             },
             {
-                title: "Step 17: Upgrade Release",
+                title: "Step 17: Navigate to Services",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 17: Upgrade Release</h4>
-                    <p>Click Upgrade Release</p>
-                    </div>
-                    <div class="step-image">
-                        <img src="grafana-images/grafana-step-20.png" alt="Grafana Step 20" />
-                    </div>
-                `
-            },
-            {
-                title: "Step 18: Navigate to Services",
-                content: `
-                    <div class="step-text-content">
-                        <h4>Step 18: Navigate to Services</h4>
+                        <h4>Step 17: Navigate to Services</h4>
                     <p>Click on Network in the left sidebar, then click Services</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-23.png" alt="Grafana Step 23" />
+                        <img src="images/grafana-images/grafana-step-17.png" alt="Grafana Step 20" />
                     </div>
                 `
             },
             {
-                title: "Step 19: Search Services",
+                title: "Step 18: Search Services",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 19: Search Services</h4>
-                    <p>Click the magnifying glass icon to search</p>
+                        <h4>Step 18: Search Services</h4>
+                    <p>Click the magnifying glass icon to search grafana</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-24.png" alt="Grafana Step 24" />
+                        <img src="images/grafana-images/grafana-step-18.png" alt="Grafana Step 24" />
                     </div>
                 `
             },
             {
-                title: "Step 20: Find Grafana NodePort",
+                title: "Step 19: Find Grafana NodePort",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 20: Find Grafana NodePort</h4>
-                    <p>Enter <code>grafana</code> to see which NodePort the Grafana interface is using</p>
+                        <h4>Step 19: Find Grafana NodePort</h4>
+                    <p>See which NodePort the Grafana interface is using</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-26.png" alt="Grafana Step 26" />
+                        <img src="images/grafana-images/grafana-step-19.png" alt="Grafana Step 26" />
                     </div>
                 `
             },
             {
-                title: "Step 21: Access Grafana Web Interface",
+                title: "Step 20: Access Grafana Web Interface",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 21: Access Grafana Web Interface</h4>
+                        <h4>Step 20: Access Grafana Web Interface</h4>
                     <p>Access the Grafana web interface at: <code>$ClusterIP:$NodePort</code></p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-27.png" alt="Grafana Step 27" />
+                        <img src="images/grafana-images/grafana-step-20.png" alt="Grafana Step 26" />
                     </div>
                 `
             },
             {
-                title: "Step 22: Search for Grafana Secret",
+                title: "Step 21: Search for Grafana Secret",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 22: Search for Grafana Secret</h4>
+                        <h4>Step 21: Search for Grafana Secret</h4>
                     <p>Return to the Pilotwave web interface, Press the <kbd>/</kbd> key to search for <code>grafana</code>, Click on grafana Secret</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-29.png" alt="Grafana Step 29" />
+                        <img src="images/grafana-images/grafana-step-21.png" alt="Grafana Step 29" />
                     </div>
                 `
             },
             {
-                title: "Step 23: Show Decoded Password",
+                title: "Step 22: Show Decoded Password",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 23: Show Decoded Password</h4>
+                        <h4>Step 22: Show Decoded Password</h4>
                     <p>Click Show Decoded</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-30.png" alt="Grafana Step 30" />
+                        <img src="images/grafana-images/grafana-step-22.png" alt="Grafana Step 30" />
                     </div>
                 `
             },
             {
-                title: "Step 24: Copy Password",
+                title: "Step 23: Copy Password",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 24: Copy Password</h4>
+                        <h4>Step 23: Copy Password</h4>
                     <p>Copy the grafana password</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-31.png" alt="Grafana Step 31" />
+                        <img src="images/grafana-images/grafana-step-23.png" alt="Grafana Step 31" />
                     </div>
                 `
             },
             {
-                title: "Step 25: Enter Login Credentials",
+                title: "Step 24: Enter Login Credentials",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 25: Enter Login Credentials</h4>
+                        <h4>Step 24: Enter Login Credentials</h4>
                     <p>Fill in the login credentials: Email or username: <code>admin</code>, Password: [paste the copied grafana password]</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-32.png" alt="Grafana Step 32" />
+                        <img src="images/grafana-images/grafana-step-32.png" alt="Grafana Step 32" />
                     </div>
                 `
             },
             {
-                title: "Step 26: Login Success",
+                title: "Step 25: Login Success",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 26: Login Success</h4>
+                        <h4>Step 25: Login Success</h4>
                     <p>Login Success - You can now access Grafana!</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-33.png" alt="Grafana Step 33" />
+                        <img src="images/grafana-images/grafana-step-33.png" alt="Grafana Step 33" />
                     </div>
                 `
             },
             {
-                title: "Step 27: Grafana Dashboard",
+                title: "Step 26: Grafana Dashboard",
                 content: `
                     <div class="step-text-content">
-                        <h4>Step 27: Grafana Dashboard</h4>
-                    <p>Welcome to Grafana! You have successfully deployed and accessed Grafana via Pilotwave.</p>
+                        <h4>Step 26: Grafana Dashboard</h4>
+                    <p>Welcome to Grafana! You have successfully deployed Grafana.</p>
                     </div>
                     <div class="step-image">
-                        <img src="grafana-images/grafana-step-34.png" alt="Grafana Step 34" />
+                        <img src="images/grafana-images/grafana-step-34.png" alt="Grafana Step 34" />
                     </div>
                 `
             }
@@ -1062,10 +1141,63 @@
             }
         }
 
-        // Initialize first step
+        // Initialize first step and responsive scaling
         document.addEventListener('DOMContentLoaded', function() {
             updateStep();
+            handleResponsiveScaling();
+            window.addEventListener('resize', handleResponsiveScaling);
         });
+        
+        function handleResponsiveScaling() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const body = document.body;
+            
+            // 移除所有現有的縮放類別
+            body.classList.remove('scale-90', 'scale-85', 'scale-80', 'scale-75', 'scale-70', 'scale-65');
+            
+            // 計算縮放比例，同時考慮寬度和高度
+            let scale = 1;
+            
+            // 根據寬度計算縮放
+            if (width <= 480) {
+                scale = Math.min(scale, 0.7);
+            } else if (width <= 768) {
+                scale = Math.min(scale, 0.75);
+            } else if (width <= 1024) {
+                scale = Math.min(scale, 0.8);
+            } else if (width <= 1200) {
+                scale = Math.min(scale, 0.85);
+            } else if (width <= 1400) {
+                scale = Math.min(scale, 0.9);
+            }
+            
+            // 根據高度進一步調整縮放
+            if (height <= 600) {
+                scale = Math.min(scale, 0.65);
+            } else if (height <= 700) {
+                scale = Math.min(scale, 0.7);
+            } else if (height <= 800) {
+                scale = Math.min(scale, 0.75);
+            } else if (height <= 900) {
+                scale = Math.min(scale, 0.8);
+            }
+            
+            // 應用縮放
+            if (scale <= 0.65) {
+                body.classList.add('scale-65');
+            } else if (scale <= 0.7) {
+                body.classList.add('scale-70');
+            } else if (scale <= 0.75) {
+                body.classList.add('scale-75');
+            } else if (scale <= 0.8) {
+                body.classList.add('scale-80');
+            } else if (scale <= 0.85) {
+                body.classList.add('scale-85');
+            } else if (scale <= 0.9) {
+                body.classList.add('scale-90');
+            }
+        }
 
         function toggleSection(sectionId) {
             const sidebarItem = event.currentTarget;
