@@ -216,6 +216,14 @@
             display: block;
             animation: fadeIn 0.3s ease-in;
         }
+        
+        .example-content {
+            display: none;
+        }
+        
+        .example-content.active {
+            display: block;
+        }
 
         .content-section h2 {
             font-size: 24px;
@@ -690,6 +698,9 @@
                     <div class="sidebar-subitem active" onclick="showSubSection('examples', 'grafana')">
                         <span class="sidebar-title">Deploy & Upgrade Grafana</span>
                     </div>
+                    <div class="sidebar-subitem" onclick="showSubSection('examples', 'ai-application')">
+                        <span class="sidebar-title">AI Application</span>
+                    </div>
                 </div>
                 <div class="sidebar-item" onclick="toggleSection('migration')">
                     <span class="sidebar-title">Migration</span>
@@ -732,28 +743,59 @@
             </div>
 
             <div id="examples" class="content-section active">
-                <div class="step-by-step-container">
-                    <div class="step-header">
-                        <h1>Pilotwave helm deploy & upgrade grafana</h1>
-                        <div class="step-progress">
-                            <span class="current-step">Step <span id="current-step-number">1</span> of 26</span>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="progress-fill"></div>
+                <!-- Grafana Example Content -->
+                <div id="grafana-content" class="example-content active">
+                    <div class="step-by-step-container">
+                        <div class="step-header">
+                            <h1>Pilotwave helm deploy & upgrade grafana</h1>
+                            <div class="step-progress">
+                                <span class="current-step">Step <span id="current-step-number">1</span> of 26</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="step-content" id="step-content">
-                        <!-- Step content will be populated by JavaScript -->
-                    </div>
+                        <div class="step-content" id="step-content">
+                            <!-- Step content will be populated by JavaScript -->
+                        </div>
 
-                    <div class="step-navigation">
-                        <button class="nav-btn prev-btn" id="prev-btn" onclick="previousStep()" disabled>
-                            ← Previous
-                        </button>
-                        <button class="nav-btn next-btn" id="next-btn" onclick="nextStep()">
-                            Next →
-                        </button>
+                        <div class="step-navigation">
+                            <button class="nav-btn prev-btn" id="prev-btn" onclick="previousStep()" disabled>
+                                ← Previous
+                            </button>
+                            <button class="nav-btn next-btn" id="next-btn" onclick="nextStep()">
+                                Next →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Application Content -->
+                <div id="ai-application-content" class="example-content">
+                    <div class="step-by-step-container">
+                        <div class="step-header">
+                            <h1>Pilotwave AI Application</h1>
+                            <div class="step-progress">
+                                <span class="current-step">Step <span id="ai-current-step-number">1</span> of 4</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="ai-progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="ai-step-content">
+                            <!-- Step content will be populated by JavaScript -->
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="nav-btn prev-btn" id="ai-prev-btn" onclick="aiPreviousStep()" disabled>
+                                ← Previous
+                            </button>
+                            <button class="nav-btn next-btn" id="ai-next-btn" onclick="aiNextStep()">
+                                Next →
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1096,7 +1138,60 @@
             }
         ];
 
+        // AI Application steps
+        const aiSteps = [
+            {
+                title: "Step 1: Call AI Assistant",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 1: Call AI Assistant</h4>
+                        <p>Press Command + I to call AI assistant or click the AI icon in the bottom right corner</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/ai-application-images/ai-application-01.png" alt="AI Application Step 1" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 2: AI Assistant Activated",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 2: AI Assistant Activated</h4>
+                        <p>Successfully activate the AI assistant interface</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/ai-application-images/ai-application-02.png" alt="AI Application Step 2" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 3: Query Grafana Information",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 3: Query Grafana Information</h4>
+                        <p>Type "grafana" to query and view Grafana-related content</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/ai-application-images/ai-application-03.png" alt="AI Application Step 3" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 4: Get Grafana Information",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 4: Get Grafana Information</h4>
+                        <p>Successfully retrieve and display Grafana information</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/ai-application-images/ai-application-04.png" alt="AI Application Step 4" />
+                    </div>
+                `
+            }
+        ];
+
         let currentStep = 0;
+        let aiCurrentStep = 0;
 
         function updateStep() {
             // Update step content
@@ -1138,6 +1233,50 @@
             if (currentStep > 0) {
                 currentStep--;
                 updateStep();
+            }
+        }
+
+        // AI Application functions
+        function updateAIStep() {
+            // Update step content
+            document.getElementById('ai-step-content').innerHTML = aiSteps[aiCurrentStep].content;
+            
+            // Add active class to trigger animations after a short delay
+            setTimeout(() => {
+                const textContent = document.querySelector('#ai-step-content .step-text-content');
+                const imageContent = document.querySelector('#ai-step-content .step-image');
+                
+                if (textContent) textContent.classList.add('active');
+                if (imageContent) imageContent.classList.add('active');
+            }, 50);
+            
+            // Update step number and progress
+            document.getElementById('ai-current-step-number').textContent = aiCurrentStep + 1;
+            const progressPercent = ((aiCurrentStep + 1) / aiSteps.length) * 100;
+            document.getElementById('ai-progress-fill').style.width = progressPercent + '%';
+            
+            // Update navigation buttons
+            document.getElementById('ai-prev-btn').disabled = aiCurrentStep === 0;
+            document.getElementById('ai-next-btn').disabled = aiCurrentStep === aiSteps.length - 1;
+            
+            if (aiCurrentStep === aiSteps.length - 1) {
+                document.getElementById('ai-next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('ai-next-btn').textContent = 'Next →';
+            }
+        }
+
+        function aiNextStep() {
+            if (aiCurrentStep < aiSteps.length - 1) {
+                aiCurrentStep++;
+                updateAIStep();
+            }
+        }
+
+        function aiPreviousStep() {
+            if (aiCurrentStep > 0) {
+                aiCurrentStep--;
+                updateAIStep();
             }
         }
 
@@ -1271,8 +1410,24 @@
             
             event.currentTarget.classList.add('active');
             
-            // You can add logic here to show specific subsection content
-            // For now, it shows the main section (examples for grafana)
+            // Show specific subsection content
+            const exampleContents = document.querySelectorAll('.example-content');
+            exampleContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show the selected subsection content
+            const targetContent = document.getElementById(subSection + '-content');
+            if (targetContent) {
+                targetContent.classList.add('active');
+                
+                // Initialize the appropriate step function
+                if (subSection === 'grafana') {
+                    setTimeout(() => updateStep(), 100);
+                } else if (subSection === 'ai-application') {
+                    setTimeout(() => updateAIStep(), 100);
+                }
+            }
         }
 
         function showSection(sectionId) {
