@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>By Helm - Pilotwave + Documentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Prism.js CSS for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">P+</div>
+            <span class="logo-text">Pilotwave +</span>
+        </div>
+        <div class="context-info">
+            <span class="context-label">Current context: </span>
+            <span class="context-value">Installation by Helm</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Documentation</h3>
+            </div>
+            <div class="sidebar-sections">
+                <div class="sidebar-item active expanded">
+                    <span class="sidebar-title">Installation</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-subitems expanded">
+                    <div class="sidebar-subitem active">
+                        <span class="sidebar-title">By Helm</span>
+                    </div>
+                    <div class="sidebar-subitem" onclick="window.location.href='by-ui-installer.html'">
+                        <span class="sidebar-title">By UI installer</span>
+                    </div>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Cluster/cluster.html'">
+                    <span class="sidebar-title">Cluster</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../ServiceMesh/service-mesh.html'">
+                    <span class="sidebar-title">Service Mesh</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Extensions/extensions.html'">
+                    <span class="sidebar-title">Extensions</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Examples/grafana-example.html'">
+                    <span class="sidebar-title">Examples</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Migration/migration.html'">
+                    <span class="sidebar-title">Migration</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../FAQ/faq.html'">
+                    <span class="sidebar-title">FAQ</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="step-by-step-container">
+                <div class="step-header">
+                    <h1>Pilotwave+ Installation by Helm</h1>
+                    <div class="step-progress">
+                        <span class="current-step">Step <span id="current-step-number">1</span> of 6</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step-content">
+                    <!-- Step content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="by-helm-steps.js"></script>
+    
+    <!-- Prism.js JavaScript for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-shell-session.min.js"></script>
+    
+    <script>
+        // Function to highlight code after content updates
+        function highlightCode() {
+            if (window.Prism) {
+                Prism.highlightAll();
+            }
+        }
+        
+        // Override the original updateStep function to include syntax highlighting
+        const originalUpdateStep = updateStep;
+        updateStep = function() {
+            originalUpdateStep();
+            setTimeout(highlightCode, 100);
+        };
+    </script>
+</body>
+</html>
