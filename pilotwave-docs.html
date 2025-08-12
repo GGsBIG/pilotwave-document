@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilotwave + Documentation</title>
+    <!-- Prism.js CSS for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -317,6 +319,9 @@
         .step-image {
             margin: 16px 0;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .step-text-content {
@@ -347,16 +352,35 @@
         }
 
         .step-image img {
-            width: 91%;
+            width: 100%;
             height: auto;
-            max-width: 913px;
+            max-height: 600px;
+            max-width: 900px;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         @media (max-width: 768px) {
             .step-image img {
-                width: 126.75%;
-                max-width: 608px;
+                width: 100%;
+                max-height: 400px;
+                max-width: 100%;
             }
+        }
+
+        .step-image-group {
+            position: relative;
+            margin-top: 20px;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .step-image-group.active {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         /* Step-by-Step Interface */
@@ -445,13 +469,41 @@
         }
 
         .step-content code {
-            background-color: transparent;
+            background-color: #f8f9fa;
             color: #333;
-            padding: 0;
-            border-radius: 0;
-            font-family: 'DFKai-SB', '標楷體', 'BiauKai', 'Kai', serif;
-            font-size: 19px;
-            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        /* Override Prism.js styles to fix conflicts */
+        .step-content pre[class*="language-"] {
+            margin: 12px 0 !important;
+            border-radius: 8px !important;
+            padding: 16px !important;
+            overflow-x: auto !important;
+            background: #2d3748 !important;
+            border: 1px solid #4a5568 !important;
+        }
+
+        .step-content code[class*="language-"] {
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            color: #e2e8f0 !important;
+            background: transparent !important;
+        }
+
+        .step-content pre:not([class*="language-"]) {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 12px 0;
+            border: 1px solid #4a5568;
         }
 
         .step-content kbd {
@@ -474,19 +526,24 @@
             border-radius: 0;
             box-shadow: none;
             z-index: 1000;
-            margin-top: -10px;
+            margin-top: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .next-btn {
             background-color: #dc3545;
             color: white;
-            margin-right: 247px;
+            margin-right: 0;
         }
 
         @media (max-width: 768px) {
             .step-navigation {
-                bottom: 20px;
-                gap: 50px;
+                margin-top: 20px;
+                max-width: 100%;
+                padding: 0 20px;
+                box-sizing: border-box;
             }
             
             .nav-btn {
@@ -512,7 +569,7 @@
         .prev-btn {
             background-color: #6c757d;
             color: white;
-            margin-left: 0px;
+            margin-left: 0;
         }
 
         .prev-btn:hover:not(:disabled) {
@@ -674,9 +731,17 @@
                 <h3>Documentation</h3>
             </div>
             <div class="sidebar-sections">
-                <div class="sidebar-item" onclick="toggleSection('installation')">
+                <div class="sidebar-item active expanded" onclick="toggleSection('installation')">
                     <span class="sidebar-title">Installation</span>
                     <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-subitems expanded">
+                    <div class="sidebar-subitem active" onclick="showSubSection('installation', 'by-helm')">
+                        <span class="sidebar-title">By Helm</span>
+                    </div>
+                    <div class="sidebar-subitem" onclick="showSubSection('installation', 'by-ui-installer')">
+                        <span class="sidebar-title">By UI installer</span>
+                    </div>
                 </div>
                 <div class="sidebar-item" onclick="toggleSection('cluster')">
                     <span class="sidebar-title">Cluster</span>
@@ -690,12 +755,12 @@
                     <span class="sidebar-title">Extensions</span>
                     <span class="sidebar-arrow">▶</span>
                 </div>
-                <div class="sidebar-item active expanded" onclick="toggleSection('examples')">
+                <div class="sidebar-item" onclick="toggleSection('examples')">
                     <span class="sidebar-title">Examples</span>
                     <span class="sidebar-arrow">▶</span>
                 </div>
-                <div class="sidebar-subitems expanded">
-                    <div class="sidebar-subitem active" onclick="showSubSection('examples', 'grafana')">
+                <div class="sidebar-subitems">
+                    <div class="sidebar-subitem" onclick="showSubSection('examples', 'grafana')">
                         <span class="sidebar-title">Deploy & Upgrade Grafana</span>
                     </div>
                     <div class="sidebar-subitem" onclick="showSubSection('examples', 'ai-application')">
@@ -714,10 +779,61 @@
         </div>
 
         <div class="content-area">
-            <div id="installation" class="content-section">
-                <h2>Installation</h2>
-                <div class="content-placeholder">
-                    <p>Installation content will be displayed here...</p>
+            <div id="installation" class="content-section active">
+                <!-- By Helm Content -->
+                <div id="by-helm-content" class="example-content active">
+                    <div class="step-by-step-container">
+                        <div class="step-header">
+                            <h1>Pilotwave+ Installation by Helm</h1>
+                            <div class="step-progress">
+                                <span class="current-step">Step <span id="helm-current-step-number">1</span> of 6</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="helm-progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="helm-step-content">
+                            <!-- Step content will be populated by JavaScript -->
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="nav-btn prev-btn" id="helm-prev-btn" onclick="helmPreviousStep()" disabled>
+                                ← Previous
+                            </button>
+                            <button class="nav-btn next-btn" id="helm-next-btn" onclick="helmNextStep()">
+                                Next →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- By UI Installer Content -->
+                <div id="by-ui-installer-content" class="example-content">
+                    <div class="step-by-step-container">
+                        <div class="step-header">
+                            <h1>Pilotwave+ Installation by UI installer</h1>
+                            <div class="step-progress">
+                                <span class="current-step">Step <span id="ui-installer-current-step-number">0</span> of 8</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="ui-installer-progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="ui-installer-step-content">
+                            <!-- Step content will be populated by JavaScript -->
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="nav-btn prev-btn" id="ui-installer-prev-btn" onclick="uiInstallerPreviousStep()" disabled>
+                                ← Previous
+                            </button>
+                            <button class="nav-btn next-btn" id="ui-installer-next-btn" onclick="uiInstallerNextStep()">
+                                Next →
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -742,9 +858,9 @@
                 </div>
             </div>
 
-            <div id="examples" class="content-section active">
+            <div id="examples" class="content-section">
                 <!-- Grafana Example Content -->
-                <div id="grafana-content" class="example-content active">
+                <div id="grafana-content" class="example-content">
                     <div class="step-by-step-container">
                         <div class="step-header">
                             <h1>Pilotwave helm deploy & upgrade grafana</h1>
@@ -825,7 +941,6 @@
                     <div class="step-text-content">
                         <h4>Step 1: Access Helm App Store</h4>
                         <p>Enter the initial page and click on Helm App Store</p>
-                    </div>
                     </div>
                     <div class="step-image">
                         <img src="images/grafana-images/grafana-step-01.png" alt="Grafana Step 1" />
@@ -1190,8 +1305,210 @@
             }
         ];
 
+        // Helm installation steps
+        const helmSteps = [
+            {
+                title: "Step 1: Create Namespace",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 1: Create Namespace</h4>
+                        <p>Create a dedicated namespace for Pilotwave+ installation:</p>
+                        <pre><code class="language-bash">kubectl create namespace pilotwave-plus</code></pre>
+                    </div>
+                `
+            },
+            {
+                title: "Step 2: Create Docker Registry Secret",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 2: Create Docker Registry Secret</h4>
+                        <p>Create a secret for accessing the GitHub Container Registry:</p>
+                        <pre><code class="language-bash">kubectl create secret docker-registry pwp-ghcr-cert \\
+  --docker-server=ghcr.io \\
+  --docker-username=your-username \\
+  --docker-password='your-token' \\
+  --namespace=pilotwave-plus</code></pre>
+                        <p>Replace <strong>your-username</strong> and <strong>your-token</strong> with your GitHub credentials.</p>
+                    </div>
+                `
+            },
+            {
+                title: "Step 3: Install Helm",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 3: Install Helm</h4>
+                        <p>Install Helm if not already installed:</p>
+                        <pre><code class="language-bash">curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash</code></pre>
+                        <p>Login to Helm Registry:</p>
+                        <pre><code class="language-bash">helm registry login ghcr.io \\
+  --username your-username \\
+  --password 'your-token'</code></pre>
+                    </div>
+                `
+            },
+            {
+                title: "Step 4: Create Configuration File",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 4: Create Configuration File</h4>
+                        <p>Create a values.yaml file to configure image pull secrets:</p>
+                        <p><strong>values.yaml</strong></p>
+                        <pre><code class="language-yaml">global:
+  imagePullSecrets:
+  - pwp-ghcr-cert</code></pre>
+                        <p>Save this content to a file named <code>values.yaml</code> in your current directory.</p>
+                    </div>
+                `
+            },
+            {
+                title: "Step 5: Install PilotWave Plus",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 5: Install PilotWave Plus</h4>
+                        <p>Install PilotWave Plus using Helm:</p>
+                        <pre><code class="language-bash">helm install pwp -n pilotwave-plus --create-namespace \\
+  oci://ghcr.io/brobridgeorg/charts/brobridge-pilotwave-plus \\
+  --version 1.0.0 -f values.yaml</code></pre>
+                        <p>Monitor the installation progress:</p>
+                        <pre><code class="language-bash">kubectl get pods -n pilotwave-plus -w</code></pre>
+                    </div>
+                `
+            },
+            {
+                title: "Step 6: Access the Service",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 6: Access the Service</h4>
+                        <p>The service will be available through NodePort 30030:</p>
+                        <p><strong>Access URL:</strong> <code>http://&lt;cluster-node-ip&gt;:30030</code></p>
+                        <p><strong>Default credentials:</strong></p>
+                        <ul>
+                            <li><strong>Username:</strong> admin</li>
+                            <li><strong>Password:</strong> admin123</li>
+                        </ul>
+                        <p>Verify the service is running:</p>
+                        <pre><code class="language-bash">kubectl get svc -n pilotwave-plus</code></pre>
+                    </div>
+                `
+            }
+        ];
+
+        // UI installer steps
+        const uiInstallerSteps = [
+            {
+                title: "Step 0: Architecture Overview",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 0: Architecture Overview</h4>
+                        <p>Understand the Pilotwave+ architecture and how the UI installer interacts with your Kubernetes cluster.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/struct.png" alt="Pilotwave+ Architecture" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 1: Download and Launch",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 1: Download and Launch Installer</h4>
+                        <p>Download and run the Pilotwave+ UI installer. The installer will launch with the welcome screen.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-1.png" alt="UI Installer Step 1" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 2: EULA Agreement",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 2: Sign EULA Agreement</h4>
+                        <p>Review and sign the End User License Agreement (EULA) to proceed with the installation.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-2.png" alt="UI Installer Step 2" />
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-2-error-accept.png" alt="UI Installer Step 2 Error" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 3: Select K8s Cluster",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 3: Select and Configure Kubernetes Cluster</h4>
+                        <p>Choose and configure your Kubernetes cluster for Pilotwave+ installation.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-3.png" alt="UI Installer Step 3" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 4: Permission Check",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 4: Check Permissions</h4>
+                        <p>Verify and validate permissions for Kubernetes cluster access and Pilotwave+ installation.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-4-1.png" alt="UI Installer Step 4-1" />
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-4-2.png" alt="UI Installer Step 4-2" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 5: Installation Settings",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 5: Installation Settings</h4>
+                        <p>Configure installation settings including component selection and deployment parameters.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-5-1.png" alt="UI Installer Step 5-1" />
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-5-2.png" alt="UI Installer Step 5-2" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 6: Installation Progress",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 6: Installation Progress</h4>
+                        <p>The installation process will begin. Monitor the progress and wait for completion.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-6-1.png" alt="UI Installer Step 6-1" />
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-6-2.png" alt="UI Installer Step 6-2" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 7: Complete",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 7: Installation Complete</h4>
+                        <p>Installation successful! Access the dashboard at <code>http://&lt;cluster-node-ip&gt;:30030</code> with admin/admin123.</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/installation/ui-installer/step-7.png" alt="UI Installer Step 7" />
+                    </div>
+                `
+            }
+        ];
+
         let currentStep = 0;
         let aiCurrentStep = 0;
+        let helmCurrentStep = 0;
+        let uiInstallerCurrentStep = 0;
 
         function updateStep() {
             // Update step content
@@ -1199,8 +1516,8 @@
             
             // Add active class to trigger animations after a short delay
             setTimeout(() => {
-                const textContent = document.querySelector('.step-text-content');
-                const imageContent = document.querySelector('.step-image');
+                const textContent = document.querySelector('#step-content .step-text-content');
+                const imageContent = document.querySelector('#step-content .step-image');
                 
                 if (textContent) textContent.classList.add('active');
                 if (imageContent) imageContent.classList.add('active');
@@ -1280,9 +1597,97 @@
             }
         }
 
+        // Helm installation functions
+        function updateHelmStep() {
+            // Update step content
+            document.getElementById('helm-step-content').innerHTML = helmSteps[helmCurrentStep].content;
+            
+            // Add active class to trigger animations after a short delay
+            setTimeout(() => {
+                const textContent = document.querySelector('#helm-step-content .step-text-content');
+                
+                if (textContent) textContent.classList.add('active');
+            }, 50);
+            
+            // Update step number and progress
+            document.getElementById('helm-current-step-number').textContent = helmCurrentStep + 1;
+            const progressPercent = ((helmCurrentStep + 1) / helmSteps.length) * 100;
+            document.getElementById('helm-progress-fill').style.width = progressPercent + '%';
+            
+            // Update navigation buttons
+            document.getElementById('helm-prev-btn').disabled = helmCurrentStep === 0;
+            document.getElementById('helm-next-btn').disabled = helmCurrentStep === helmSteps.length - 1;
+            
+            if (helmCurrentStep === helmSteps.length - 1) {
+                document.getElementById('helm-next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('helm-next-btn').textContent = 'Next →';
+            }
+        }
+
+        function helmNextStep() {
+            if (helmCurrentStep < helmSteps.length - 1) {
+                helmCurrentStep++;
+                updateHelmStep();
+            }
+        }
+
+        function helmPreviousStep() {
+            if (helmCurrentStep > 0) {
+                helmCurrentStep--;
+                updateHelmStep();
+            }
+        }
+
+        // UI installer functions
+        function updateUIInstallerStep() {
+            // Update step content
+            document.getElementById('ui-installer-step-content').innerHTML = uiInstallerSteps[uiInstallerCurrentStep].content;
+            
+            // Add active class to trigger animations after a short delay
+            setTimeout(() => {
+                const textContent = document.querySelector('#ui-installer-step-content .step-text-content');
+                const imageContents = document.querySelectorAll('#ui-installer-step-content .step-image');
+                
+                if (textContent) textContent.classList.add('active');
+                imageContents.forEach(imageContent => {
+                    if (imageContent) imageContent.classList.add('active');
+                });
+            }, 50);
+            
+            // Update step number and progress
+            document.getElementById('ui-installer-current-step-number').textContent = uiInstallerCurrentStep;
+            const progressPercent = ((uiInstallerCurrentStep + 1) / uiInstallerSteps.length) * 100;
+            document.getElementById('ui-installer-progress-fill').style.width = progressPercent + '%';
+            
+            // Update navigation buttons
+            document.getElementById('ui-installer-prev-btn').disabled = uiInstallerCurrentStep === 0;
+            document.getElementById('ui-installer-next-btn').disabled = uiInstallerCurrentStep === uiInstallerSteps.length - 1;
+            
+            if (uiInstallerCurrentStep === uiInstallerSteps.length - 1) {
+                document.getElementById('ui-installer-next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('ui-installer-next-btn').textContent = 'Next →';
+            }
+        }
+
+        function uiInstallerNextStep() {
+            if (uiInstallerCurrentStep < uiInstallerSteps.length - 1) {
+                uiInstallerCurrentStep++;
+                updateUIInstallerStep();
+            }
+        }
+
+        function uiInstallerPreviousStep() {
+            if (uiInstallerCurrentStep > 0) {
+                uiInstallerCurrentStep--;
+                updateUIInstallerStep();
+            }
+        }
+
         // Initialize first step and responsive scaling
         document.addEventListener('DOMContentLoaded', function() {
-            updateStep();
+            updateHelmStep(); // Initialize with Helm installation steps
             handleResponsiveScaling();
             window.addEventListener('resize', handleResponsiveScaling);
         });
@@ -1426,6 +1831,10 @@
                     setTimeout(() => updateStep(), 100);
                 } else if (subSection === 'ai-application') {
                     setTimeout(() => updateAIStep(), 100);
+                } else if (subSection === 'by-helm') {
+                    setTimeout(() => updateHelmStep(), 100);
+                } else if (subSection === 'by-ui-installer') {
+                    setTimeout(() => updateUIInstallerStep(), 100);
                 }
             }
         }
@@ -1450,6 +1859,46 @@
                 event.currentTarget.classList.add('active');
             }
         }
+    </script>
+    
+    <!-- Prism.js JavaScript for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-shell-session.min.js"></script>
+    
+    <script>
+        // Function to highlight code after content updates
+        function highlightCode() {
+            if (window.Prism) {
+                Prism.highlightAll();
+            }
+        }
+        
+        // Override the original updateStep functions to include syntax highlighting
+        const originalUpdateStep = updateStep;
+        updateStep = function() {
+            originalUpdateStep();
+            setTimeout(highlightCode, 100);
+        };
+        
+        const originalUpdateAIStep = updateAIStep;
+        updateAIStep = function() {
+            originalUpdateAIStep();
+            setTimeout(highlightCode, 100);
+        };
+        
+        const originalUpdateHelmStep = updateHelmStep;
+        updateHelmStep = function() {
+            originalUpdateHelmStep();
+            setTimeout(highlightCode, 100);
+        };
+        
+        const originalUpdateUIInstallerStep = updateUIInstallerStep;
+        updateUIInstallerStep = function() {
+            originalUpdateUIInstallerStep();
+            setTimeout(highlightCode, 100);
+        };
     </script>
 </body>
 </html>
