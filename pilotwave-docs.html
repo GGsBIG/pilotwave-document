@@ -318,9 +318,9 @@
 
         .step-image {
             margin: 16px 0;
-            text-align: center;
+            text-align: left;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
         }
 
@@ -519,8 +519,9 @@
         .step-navigation {
             position: relative;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
+            gap: 663px;
             background-color: transparent;
             padding: 0;
             border-radius: 0;
@@ -569,7 +570,7 @@
         .prev-btn {
             background-color: #6c757d;
             color: white;
-            margin-left: 0;
+            margin-left: -130px;
         }
 
         .prev-btn:hover:not(:disabled) {
@@ -766,6 +767,12 @@
                     <div class="sidebar-subitem" onclick="showSubSection('examples', 'ai-application')">
                         <span class="sidebar-title">AI Application</span>
                     </div>
+                    <div class="sidebar-subitem" onclick="showSubSection('examples', 'system-debug')">
+                        <span class="sidebar-title">Debug & Search Function</span>
+                    </div>
+                    <div class="sidebar-subitem" onclick="showSubSection('examples', 'ai-assistant')">
+                        <span class="sidebar-title">AI Assistant</span>
+                    </div>
                 </div>
                 <div class="sidebar-item" onclick="toggleSection('migration')">
                     <span class="sidebar-title">Migration</span>
@@ -909,6 +916,62 @@
                                 ← Previous
                             </button>
                             <button class="nav-btn next-btn" id="ai-next-btn" onclick="aiNextStep()">
+                                Next →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Debug Content -->
+                <div id="system-debug-content" class="example-content">
+                    <div class="step-by-step-container">
+                        <div class="step-header">
+                            <h1>System Debug Search Function</h1>
+                            <div class="step-progress">
+                                <span class="current-step">Step <span id="system-debug-current-step-number">1</span> of 5</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="system-debug-progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="system-debug-step-content">
+                            <!-- Step content will be populated by JavaScript -->
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="nav-btn prev-btn" id="system-debug-prev-btn" onclick="systemDebugPreviousStep()" disabled>
+                                ← Previous
+                            </button>
+                            <button class="nav-btn next-btn" id="system-debug-next-btn" onclick="systemDebugNextStep()">
+                                Next →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Assistant Content -->
+                <div id="ai-assistant-content" class="example-content">
+                    <div class="step-by-step-container">
+                        <div class="step-header">
+                            <h1>AI Assistant - TLS Certificate Analysis</h1>
+                            <div class="step-progress">
+                                <span class="current-step">Step <span id="ai-assistant-current-step-number">1</span> of 8</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="ai-assistant-progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="ai-assistant-step-content">
+                            <!-- Step content will be populated by JavaScript -->
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="nav-btn prev-btn" id="ai-assistant-prev-btn" onclick="aiAssistantPreviousStep()" disabled>
+                                ← Previous
+                            </button>
+                            <button class="nav-btn next-btn" id="ai-assistant-next-btn" onclick="aiAssistantNextStep()">
                                 Next →
                             </button>
                         </div>
@@ -1305,6 +1368,170 @@
             }
         ];
 
+        // System Debug steps
+        const systemDebugSteps = [
+            {
+                title: "Step 1: Click Cluster Overview",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 1: Click Cluster Overview</h4>
+                        <p>Click on Cluster Overview to enter the cluster management interface</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/system-debug-&-search-function/system-debug-step-01.png" alt="System Debug Step 1" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 2: Search for Images or Pods",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 2: Search for Images or Pods</h4>
+                        <p>Use the search function to find specific image names or pod names in your cluster</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/system-debug-&-search-function/system-debug-step-02.png" alt="System Debug Step 2" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 3: View Pod Logs",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 3: View Pod Logs</h4>
+                        <p>Enter the pod you want to examine and click "View Logs" to check the pod's status and troubleshoot issues</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/system-debug-&-search-function/system-debug-step-03.png" alt="System Debug Step 3" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 4: Check Pod Status",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 4: Check Pod Status</h4>
+                        <p>Review the pod's current status, including resource usage, health checks, and any error messages</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/system-debug-&-search-function/system-debug-step-04.png" alt="System Debug Step 4" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 5: View Pod Images",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 5: View Pod Images</h4>
+                        <p>Examine the container images used by the pod, including image versions, tags, and registry information</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/system-debug-&-search-function/system-debug-step-05.png" alt="System Debug Step 5" />
+                    </div>
+                `
+            }
+        ];
+
+        // AI Assistant steps
+        const aiAssistantSteps = [
+            {
+                title: "Step 1: Select Configuration Secrets",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 1: Select Configuration Secrets</h4>
+                        <p>Select the Configuration field and click on Secrets to access the secret management interface</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-01.png" alt="AI Assistant Step 1" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 2: Click Search Icon",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 2: Click Search Icon</h4>
+                        <p>Click the search icon in the top right corner to open the search functionality</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-02.png" alt="AI Assistant Step 2" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 3: Search for pilotwave-tls",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 3: Search for pilotwave-tls</h4>
+                        <p>Search for "pilotwave-tls" and click on the pilotwave-tls entry to access the TLS certificate details</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-03.png" alt="AI Assistant Step 3" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 4: Click Show Decoded",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 4: Click Show Decoded</h4>
+                        <p>Click the "Show Decoded" button to reveal the decoded certificate information</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-04.png" alt="AI Assistant Step 4" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 5: Copy TLS Certificate",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 5: Copy TLS Certificate</h4>
+                        <p>Copy the decoded TLS certificate content for analysis</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-05.png" alt="AI Assistant Step 5" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 6: Paste to AI Chat",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 6: Paste to AI Chat</h4>
+                        <p>Paste the TLS token into the AI chat dialog for certificate analysis</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-06.png" alt="AI Assistant Step 6" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 7: Submit and Confirm",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 7: Submit and Confirm</h4>
+                        <p>Send the prompt and click confirm to proceed with the certificate analysis</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-07.png" alt="AI Assistant Step 7" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 8: View Certificate Expiration",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 8: View Certificate Expiration</h4>
+                        <p>View the certificate expiration information and see how much time remains before the certificate expires</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/tls-secret-content/tls-secret-step-08.png" alt="AI Assistant Step 8" />
+                    </div>
+                `
+            }
+        ];
+
         // Helm installation steps
         const helmSteps = [
             {
@@ -1597,6 +1824,98 @@
             }
         }
 
+        // System Debug functions
+        let systemDebugCurrentStep = 0;
+        
+        function updateSystemDebugStep() {
+            // Update step content
+            document.getElementById('system-debug-step-content').innerHTML = systemDebugSteps[systemDebugCurrentStep].content;
+            
+            // Add active class to trigger animations after a short delay
+            setTimeout(() => {
+                const textContent = document.querySelector('#system-debug-step-content .step-text-content');
+                const imageContent = document.querySelector('#system-debug-step-content .step-image');
+                
+                if (textContent) textContent.classList.add('active');
+                if (imageContent) imageContent.classList.add('active');
+            }, 50);
+            
+            // Update step number and progress
+            document.getElementById('system-debug-current-step-number').textContent = systemDebugCurrentStep + 1;
+            const progressPercent = ((systemDebugCurrentStep + 1) / systemDebugSteps.length) * 100;
+            document.getElementById('system-debug-progress-fill').style.width = progressPercent + '%';
+            
+            // Update navigation buttons
+            document.getElementById('system-debug-prev-btn').disabled = systemDebugCurrentStep === 0;
+            document.getElementById('system-debug-next-btn').disabled = systemDebugCurrentStep === systemDebugSteps.length - 1;
+            
+            if (systemDebugCurrentStep === systemDebugSteps.length - 1) {
+                document.getElementById('system-debug-next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('system-debug-next-btn').textContent = 'Next →';
+            }
+        }
+
+        function systemDebugNextStep() {
+            if (systemDebugCurrentStep < systemDebugSteps.length - 1) {
+                systemDebugCurrentStep++;
+                updateSystemDebugStep();
+            }
+        }
+
+        function systemDebugPreviousStep() {
+            if (systemDebugCurrentStep > 0) {
+                systemDebugCurrentStep--;
+                updateSystemDebugStep();
+            }
+        }
+
+        // AI Assistant functions
+        let aiAssistantCurrentStep = 0;
+        
+        function updateAiAssistantStep() {
+            // Update step content
+            document.getElementById('ai-assistant-step-content').innerHTML = aiAssistantSteps[aiAssistantCurrentStep].content;
+            
+            // Add active class to trigger animations after a short delay
+            setTimeout(() => {
+                const textContent = document.querySelector('#ai-assistant-step-content .step-text-content');
+                const imageContent = document.querySelector('#ai-assistant-step-content .step-image');
+                
+                if (textContent) textContent.classList.add('active');
+                if (imageContent) imageContent.classList.add('active');
+            }, 50);
+            
+            // Update step number and progress
+            document.getElementById('ai-assistant-current-step-number').textContent = aiAssistantCurrentStep + 1;
+            const progressPercent = ((aiAssistantCurrentStep + 1) / aiAssistantSteps.length) * 100;
+            document.getElementById('ai-assistant-progress-fill').style.width = progressPercent + '%';
+            
+            // Update navigation buttons
+            document.getElementById('ai-assistant-prev-btn').disabled = aiAssistantCurrentStep === 0;
+            document.getElementById('ai-assistant-next-btn').disabled = aiAssistantCurrentStep === aiAssistantSteps.length - 1;
+            
+            if (aiAssistantCurrentStep === aiAssistantSteps.length - 1) {
+                document.getElementById('ai-assistant-next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('ai-assistant-next-btn').textContent = 'Next →';
+            }
+        }
+
+        function aiAssistantNextStep() {
+            if (aiAssistantCurrentStep < aiAssistantSteps.length - 1) {
+                aiAssistantCurrentStep++;
+                updateAiAssistantStep();
+            }
+        }
+
+        function aiAssistantPreviousStep() {
+            if (aiAssistantCurrentStep > 0) {
+                aiAssistantCurrentStep--;
+                updateAiAssistantStep();
+            }
+        }
+
         // Helm installation functions
         function updateHelmStep() {
             // Update step content
@@ -1831,6 +2150,10 @@
                     setTimeout(() => updateStep(), 100);
                 } else if (subSection === 'ai-application') {
                     setTimeout(() => updateAIStep(), 100);
+                } else if (subSection === 'system-debug') {
+                    setTimeout(() => updateSystemDebugStep(), 100);
+                } else if (subSection === 'ai-assistant') {
+                    setTimeout(() => updateAiAssistantStep(), 100);
                 } else if (subSection === 'by-helm') {
                     setTimeout(() => updateHelmStep(), 100);
                 } else if (subSection === 'by-ui-installer') {
