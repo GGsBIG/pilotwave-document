@@ -773,6 +773,9 @@
                     <div class="sidebar-subitem" onclick="showSubSection('examples', 'ai-assistant')">
                         <span class="sidebar-title">AI Assistant</span>
                     </div>
+                    <div class="sidebar-subitem" onclick="showSubSection('examples', 'service-mesh')">
+                        <span class="sidebar-title">Service Mesh</span>
+                    </div>
                 </div>
                 <div class="sidebar-item" onclick="toggleSection('migration')">
                     <span class="sidebar-title">Migration</span>
@@ -972,6 +975,34 @@
                                 ← Previous
                             </button>
                             <button class="nav-btn next-btn" id="ai-assistant-next-btn" onclick="aiAssistantNextStep()">
+                                Next →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Mesh Content -->
+                <div id="service-mesh-content" class="example-content">
+                    <div class="step-by-step-container">
+                        <div class="step-header">
+                            <h1>Service Mesh - Istio Gateway Configuration</h1>
+                            <div class="step-progress">
+                                <span class="current-step">Step <span id="service-mesh-current-step-number">1</span> of 23</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="service-mesh-progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="service-mesh-step-content">
+                            <!-- Step content will be populated by JavaScript -->
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="nav-btn prev-btn" id="service-mesh-prev-btn" onclick="serviceMeshPreviousStep()" disabled>
+                                ← Previous
+                            </button>
+                            <button class="nav-btn next-btn" id="service-mesh-next-btn" onclick="serviceMeshNextStep()">
                                 Next →
                             </button>
                         </div>
@@ -1532,6 +1563,286 @@
             }
         ];
 
+        // Service Mesh steps
+        const serviceMeshSteps = [
+            {
+                title: "Step 1: Click Istio Service Mesh",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 1: Click Istio Service Mesh</h4>
+                        <p>Navigate to the Istio Service Mesh section to access service mesh management features</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-01.png" alt="Service Mesh Step 1" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 2: Enter Service Mesh Features Gateway",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 2: Enter Service Mesh Features Gateway</h4>
+                        <p>Navigate to Service Mesh Features and click on Gateway to manage traffic routing</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-02.png" alt="Service Mesh Step 2" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 3: Click Create Gateway",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 3: Click Create Gateway</h4>
+                        <p>Click the "Create Gateway" button to start creating a new Istio gateway</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-03.png" alt="Service Mesh Step 3" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 4: Enter Gateway Name",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 4: Enter Gateway Name</h4>
+                        <p>Fill in the desired Gateway Name for your new Istio gateway</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-04.png" alt="Service Mesh Step 4" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 5: Enter Hosts and Press Enter",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 5: Enter Hosts and Press Enter</h4>
+                        <p>Fill in the desired Hosts configuration and press Enter to confirm</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-05.png" alt="Service Mesh Step 5" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 6: Click Create Gateway",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 6: Click Create Gateway</h4>
+                        <p>After configuring all settings, click "Create Gateway" to finalize the gateway creation</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-06.png" alt="Service Mesh Step 6" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 7: Istio Gateway Created",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 7: Istio Gateway Created</h4>
+                        <p>The Istio Gateway has been successfully created. Now proceed to create Service Routing</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-07.png" alt="Service Mesh Step 7" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 8: Click Virtual Services Plus Icon",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 8: Click Virtual Services Plus Icon</h4>
+                        <p>Click the + icon next to Virtual Services to create a new service routing configuration</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-08.png" alt="Service Mesh Step 8" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 9: Enter Service Routing Details",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 9: Enter Service Routing Details</h4>
+                        <p>Fill in the Service Routing Name, optionally add a description, then click "Next: Gateway & Hosts"</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-09.png" alt="Service Mesh Step 9" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 10: Select Gateway",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 10: Select Gateway</h4>
+                        <p>Choose a Gateway from the available options for your virtual service configuration</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-10.png" alt="Service Mesh Step 10" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 11: Enter Hosts Name",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 11: Enter Hosts Name</h4>
+                        <p>Fill in the desired Hosts name for your virtual service configuration</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-11.png" alt="Service Mesh Step 11" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 12: Next Route Configuration",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 12: Next Route Configuration</h4>
+                        <p>After completing the configuration, click "Next: Route Configuration" to proceed</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-12.png" alt="Service Mesh Step 12" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 13: Click Services",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 13: Click Services</h4>
+                        <p>Click on Services to configure the service routing destinations</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-13.png" alt="Service Mesh Step 13" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 14: Select Available Services",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 14: Select Available Services</h4>
+                        <p>Choose from the Available Services list to configure your routing destinations</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-14.png" alt="Service Mesh Step 14" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 15: Create Virtual Service",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 15: Create Virtual Service</h4>
+                        <p>Click "Create Virtual Service" to finalize the virtual service configuration</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-15.png" alt="Service Mesh Step 15" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 16: Select Created Istio Gateway",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 16: Select Created Istio Gateway</h4>
+                        <p>Select the previously created Istio Gateway for further configuration</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-16.png" alt="Service Mesh Step 16" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 17: Edit Configuration",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 17: Edit Configuration</h4>
+                        <p>Click "Edit Configuration" in the top right corner to modify gateway settings</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-17.png" alt="Service Mesh Step 17" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 18: Select Protocol HTTPS",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 18: Select Protocol HTTPS</h4>
+                        <p>Choose HTTPS as the protocol for secure communication</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-18.png" alt="Service Mesh Step 18" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 19: Change Port to 443",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 19: Change Port to 443</h4>
+                        <p>Change the Port Number to 443 for HTTPS traffic</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-19.png" alt="Service Mesh Step 19" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 20: Select TLS Configuration",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 20: Select TLS Configuration</h4>
+                        <p>Choose the TLS Configuration method for secure communication setup</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-20.png" alt="Service Mesh Step 20" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 21: View Certificate Info",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 21: View Certificate Info</h4>
+                        <p>After configuration, click the Info button to view certificate information</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-21.png" alt="Service Mesh Step 21" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 22: Close Window",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 22: Close Window</h4>
+                        <p>After reviewing the certificate information, close the information window</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-22.png" alt="Service Mesh Step 22" />
+                    </div>
+                `
+            },
+            {
+                title: "Step 23: Save Changes",
+                content: `
+                    <div class="step-text-content">
+                        <h4>Step 23: Save Changes</h4>
+                        <p>Finally, click "Save Changes" to complete the configuration and successfully access the website</p>
+                    </div>
+                    <div class="step-image">
+                        <img src="images/Service-Mesh-Export-Cluster-Service/Service-Mesh-Export-Cluster-Service-23.png" alt="Service Mesh Step 23" />
+                    </div>
+                `
+            }
+        ];
+
         // Helm installation steps
         const helmSteps = [
             {
@@ -1916,6 +2227,52 @@
             }
         }
 
+        // Service Mesh functions
+        let serviceMeshCurrentStep = 0;
+        
+        function updateServiceMeshStep() {
+            // Update step content
+            document.getElementById('service-mesh-step-content').innerHTML = serviceMeshSteps[serviceMeshCurrentStep].content;
+            
+            // Add active class to trigger animations after a short delay
+            setTimeout(() => {
+                const textContent = document.querySelector('#service-mesh-step-content .step-text-content');
+                const imageContent = document.querySelector('#service-mesh-step-content .step-image');
+                
+                if (textContent) textContent.classList.add('active');
+                if (imageContent) imageContent.classList.add('active');
+            }, 50);
+            
+            // Update step number and progress
+            document.getElementById('service-mesh-current-step-number').textContent = serviceMeshCurrentStep + 1;
+            const progressPercent = ((serviceMeshCurrentStep + 1) / serviceMeshSteps.length) * 100;
+            document.getElementById('service-mesh-progress-fill').style.width = progressPercent + '%';
+            
+            // Update navigation buttons
+            document.getElementById('service-mesh-prev-btn').disabled = serviceMeshCurrentStep === 0;
+            document.getElementById('service-mesh-next-btn').disabled = serviceMeshCurrentStep === serviceMeshSteps.length - 1;
+            
+            if (serviceMeshCurrentStep === serviceMeshSteps.length - 1) {
+                document.getElementById('service-mesh-next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('service-mesh-next-btn').textContent = 'Next →';
+            }
+        }
+
+        function serviceMeshNextStep() {
+            if (serviceMeshCurrentStep < serviceMeshSteps.length - 1) {
+                serviceMeshCurrentStep++;
+                updateServiceMeshStep();
+            }
+        }
+
+        function serviceMeshPreviousStep() {
+            if (serviceMeshCurrentStep > 0) {
+                serviceMeshCurrentStep--;
+                updateServiceMeshStep();
+            }
+        }
+
         // Helm installation functions
         function updateHelmStep() {
             // Update step content
@@ -2154,6 +2511,8 @@
                     setTimeout(() => updateSystemDebugStep(), 100);
                 } else if (subSection === 'ai-assistant') {
                     setTimeout(() => updateAiAssistantStep(), 100);
+                } else if (subSection === 'service-mesh') {
+                    setTimeout(() => updateServiceMeshStep(), 100);
                 } else if (subSection === 'by-helm') {
                     setTimeout(() => updateHelmStep(), 100);
                 } else if (subSection === 'by-ui-installer') {
