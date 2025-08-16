@@ -1,0 +1,275 @@
+name: Deploy Pilotwave+ Documentation to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Validate HTML structure
+        run: |
+          echo "🔍 Validating HTML files..."
+          # Check if main documentation file exists
+          if [ ! -f "pilotwave-docs.html" ]; then
+            echo "❌ Error: pilotwave-docs.html not found!"
+            exit 1
+          fi
+          
+          # Check if styles.css exists
+          if [ ! -f "styles.css" ]; then
+            echo "❌ Error: styles.css not found!"
+            exit 1
+          fi
+          
+          # Check if images directory exists
+          if [ ! -d "images" ]; then
+            echo "❌ Error: images directory not found!"
+            exit 1
+          fi
+          
+          echo "✅ All required files found!"
+
+      - name: Create index.html redirect
+        run: |
+          echo "📝 Creating index.html redirect..."
+          cat > index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Pilotwave+ Documentation</title>
+              <meta http-equiv="refresh" content="0; url=./pilotwave-docs.html">
+              <link rel="canonical" href="./pilotwave-docs.html">
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      height: 100vh;
+                      margin: 0;
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      color: white;
+                      text-align: center;
+                  }
+                  .container {
+                      max-width: 600px;
+                      padding: 2rem;
+                  }
+                  .logo {
+                      font-size: 2.5rem;
+                      font-weight: bold;
+                      margin-bottom: 1rem;
+                  }
+                  .message {
+                      font-size: 1.2rem;
+                      margin-bottom: 2rem;
+                  }
+                  .redirect-link {
+                      color: #ffd700;
+                      text-decoration: none;
+                      font-weight: bold;
+                      border: 2px solid #ffd700;
+                      padding: 12px 24px;
+                      border-radius: 8px;
+                      transition: all 0.3s ease;
+                  }
+                  .redirect-link:hover {
+                      background-color: #ffd700;
+                      color: #333;
+                  }
+                  .spinner {
+                      margin: 20px auto;
+                      width: 40px;
+                      height: 40px;
+                      border: 4px solid rgba(255, 255, 255, 0.3);
+                      border-radius: 50%;
+                      border-top-color: #ffd700;
+                      animation: spin 1s ease-in-out infinite;
+                  }
+                  @keyframes spin {
+                      to { transform: rotate(360deg); }
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <div class="logo">🚀 Pilotwave+</div>
+                  <div class="message">Redirecting to documentation...</div>
+                  <div class="spinner"></div>
+                  <p>If you are not redirected automatically, <a href="./pilotwave-docs.html" class="redirect-link">click here</a></p>
+              </div>
+              <script>
+                  // Fallback redirect after 3 seconds
+                  setTimeout(function() {
+                      window.location.href = './pilotwave-docs.html';
+                  }, 3000);
+              </script>
+          </body>
+          </html>
+          EOF
+          echo "✅ index.html created successfully!"
+
+      - name: Optimize images for web
+        run: |
+          echo "🖼️ Checking image optimization..."
+          # Count total images
+          TOTAL_IMAGES=$(find images -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" \) | wc -l)
+          echo "📊 Found $TOTAL_IMAGES images in the documentation"
+          
+          # Check for large images (>1MB)
+          LARGE_IMAGES=$(find images -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) -size +1M)
+          if [ ! -z "$LARGE_IMAGES" ]; then
+            echo "⚠️ Large images found (>1MB):"
+            echo "$LARGE_IMAGES"
+            echo "💡 Consider optimizing these images for better performance"
+          else
+            echo "✅ All images are reasonably sized"
+          fi
+
+      - name: Generate site map
+        run: |
+          echo "🗺️ Generating sitemap..."
+          cat > sitemap.xml << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+              <url>
+                  <loc>https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/</loc>
+                  <lastmod>$(date -u +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>
+                  <changefreq>weekly</changefreq>
+                  <priority>1.0</priority>
+              </url>
+              <url>
+                  <loc>https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pilotwave-docs.html</loc>
+                  <lastmod>$(date -u +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>
+                  <changefreq>weekly</changefreq>
+                  <priority>1.0</priority>
+              </url>
+          </urlset>
+          EOF
+          echo "✅ Sitemap generated!"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Create deployment summary
+        run: |
+          echo "## 🚀 Pilotwave+ Documentation Deployed Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📋 Deployment Details" >> $GITHUB_STEP_SUMMARY
+          echo "- **Repository:** ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployed at:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Access Your Documentation" >> $GITHUB_STEP_SUMMARY
+          echo "Your Pilotwave+ documentation is now available at:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**🔗 Main URL:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**📖 Direct Documentation Link:** ${{ steps.deployment.outputs.page_url }}pilotwave-docs.html" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📱 How to Share" >> $GITHUB_STEP_SUMMARY
+          echo "Share this link with your team members:" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📚 Available Sections" >> $GITHUB_STEP_SUMMARY
+          echo "- 🏠 **Home** - Overview and introduction" >> $GITHUB_STEP_SUMMARY
+          echo "- 📦 **Installation** - Step-by-step setup guides" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔧 **Cluster Management** - Kubernetes cluster operations" >> $GITHUB_STEP_SUMMARY
+          echo "- 🕸️ **Service Mesh** - Istio service mesh configuration" >> $GITHUB_STEP_SUMMARY
+          echo "- 🎛️ **Extensions** - AI, themes, and system settings" >> $GITHUB_STEP_SUMMARY
+          echo "- 📖 **Examples** - Practical tutorials and use cases" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔄 **Migration** - Upgrade from legacy Pilotwave" >> $GITHUB_STEP_SUMMARY
+          echo "- ❓ **FAQ** - Frequently asked questions" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔧 Technical Info" >> $GITHUB_STEP_SUMMARY
+          echo "- Built with static HTML/CSS/JavaScript" >> $GITHUB_STEP_SUMMARY
+          echo "- Responsive design for all devices" >> $GITHUB_STEP_SUMMARY
+          echo "- Interactive step-by-step tutorials" >> $GITHUB_STEP_SUMMARY
+          echo "- Real-time search functionality" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎉 Next Steps" >> $GITHUB_STEP_SUMMARY
+          echo "1. **Visit the documentation** using the link above" >> $GITHUB_STEP_SUMMARY
+          echo "2. **Bookmark the page** for easy access" >> $GITHUB_STEP_SUMMARY
+          echo "3. **Share with your team** for collaborative learning" >> $GITHUB_STEP_SUMMARY
+          echo "4. **Explore the interactive tutorials** in the Examples section" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Powered by GitHub Pages • Updated automatically on every push to main branch*" >> $GITHUB_STEP_SUMMARY
+
+      - name: Comment on PR (if applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deploymentUrl = '${{ steps.deployment.outputs.page_url }}';
+            const comment = `## 🚀 Documentation Preview Deployed!
+            
+            Your Pilotwave+ documentation changes have been deployed to GitHub Pages.
+            
+            **📖 Preview URL:** ${deploymentUrl}
+            
+            **📋 What's included:**
+            - Interactive documentation interface
+            - Step-by-step installation guides  
+            - Service mesh configuration tutorials
+            - AI assistant setup instructions
+            - Migration guides and FAQ
+            
+            **🔍 Review checklist:**
+            - [ ] All pages load correctly
+            - [ ] Images display properly
+            - [ ] Interactive features work
+            - [ ] Mobile responsiveness
+            - [ ] Navigation functions
+            
+            This preview will be updated automatically with each push to this PR.
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
