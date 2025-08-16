@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Management - Pilotwave + Documentation</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">P+</div>
+            <span class="logo-text">Pilotwave +</span>
+        </div>
+        <div class="context-info">
+            <span class="context-label">Current context: </span>
+            <span class="context-value">Network Management</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Documentation</h3>
+            </div>
+            <div class="sidebar-sections">
+                <div class="sidebar-item" onclick="window.location.href='../Installation/installation.html'">
+                    <span class="sidebar-title">Installation</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item active" onclick="window.location.href='../Cluster/cluster.html'">
+                    <span class="sidebar-title">Cluster</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../ServiceMesh/service-mesh.html'">
+                    <span class="sidebar-title">Service Mesh</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Extensions/extensions.html'">
+                    <span class="sidebar-title">Extensions</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Examples/grafana-example.html'">
+                    <span class="sidebar-title">Examples</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Migration/migration.html'">
+                    <span class="sidebar-title">Migration</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../FAQ/faq.html'">
+                    <span class="sidebar-title">FAQ</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="installation-content">
+                <h1>Network Management</h1>
+                <h3>Comprehensive Network Configuration and Management with Pilotwave+</h3>
+                <p>Pilotwave+ provides advanced network management capabilities for Kubernetes, offering complete control over services, ingress, endpoints, and network policies. The platform ensures secure and efficient network communication across your entire cluster infrastructure.</p>
+                
+                <h4>Architecture Overview</h4>
+                <p>Pilotwave+ integrates seamlessly with Kubernetes networking to provide centralized network management:</p>
+                
+                <div class="step-image">
+                    <img src="../images/struct/basic.png" alt="Pilotwave+ Architecture Overview" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The platform's three-tier architecture enables comprehensive network management:</p>
+                <ul>
+                    <li><strong>Frontend</strong> - Intuitive user interface for network visualization and configuration</li>
+                    <li><strong>Backend</strong> - Processing engine that handles network operations and policy enforcement</li>
+                    <li><strong>Kubernetes SDK</strong> - Direct API integration for real-time network monitoring and control</li>
+                </ul>
+                
+                <h4>Services Management</h4>
+                <p>Manage network services and load balancers with comprehensive visibility into service types and endpoints:</p>
+                
+                <div class="step-image">
+                    <img src="../images/network/services.png" alt="Services Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The services interface provides:</p>
+                <ul>
+                    <li><strong>Service Types</strong> - ClusterIP, NodePort, and LoadBalancer service management</li>
+                    <li><strong>Status Monitoring</strong> - Real-time service status and health indicators</li>
+                    <li><strong>Cluster IP Assignment</strong> - Internal cluster IP address management</li>
+                    <li><strong>Namespace Organization</strong> - Services organized by namespace for better isolation</li>
+                    <li><strong>Load Balancer Configuration</strong> - External load balancer integration and management</li>
+                </ul>
+                
+                <h4>Endpoints Management</h4>
+                <p>Monitor and manage service endpoints with detailed target address information:</p>
+                
+                <div class="step-image">
+                    <img src="../images/network/endpoints.png" alt="Endpoints Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Endpoints management includes:</p>
+                <ul>
+                    <li><strong>Target Addresses</strong> - Real-time monitoring of backend pod IP addresses</li>
+                    <li><strong>Readiness Status</strong> - Endpoint readiness and availability tracking</li>
+                    <li><strong>Service Binding</strong> - Automatic endpoint discovery and service association</li>
+                    <li><strong>Health Monitoring</strong> - Endpoint health checks and failure detection</li>
+                    <li><strong>Age Tracking</strong> - Endpoint lifecycle and update history</li>
+                </ul>
+                
+                <h4>Ingress Management</h4>
+                <p>Configure and manage HTTP and HTTPS ingress rules for external traffic routing:</p>
+                
+                <div class="step-image">
+                    <img src="../images/network/ingress.png" alt="Ingress Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Ingress management provides:</p>
+                <ul>
+                    <li><strong>Ingress Rules</strong> - HTTP and HTTPS routing rule configuration</li>
+                    <li><strong>Host Management</strong> - Domain-based routing and virtual host configuration</li>
+                    <li><strong>TLS Termination</strong> - SSL/TLS certificate management and encryption</li>
+                    <li><strong>Path-Based Routing</strong> - URL path-based traffic distribution</li>
+                    <li><strong>Load Balancing</strong> - Traffic distribution across multiple backend services</li>
+                </ul>
+                
+                <h4>Ingress Classes Configuration</h4>
+                <p>Manage ingress controller classes for different ingress implementations:</p>
+                
+                <div class="step-image">
+                    <img src="../images/network/ingress_classes.png" alt="Ingress Classes Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Ingress classes management includes:</p>
+                <ul>
+                    <li><strong>Controller Selection</strong> - Multiple ingress controller support (NGINX, Traefik, etc.)</li>
+                    <li><strong>Default Classes</strong> - Default ingress class configuration for automatic selection</li>
+                    <li><strong>Controller Parameters</strong> - Controller-specific configuration and customization</li>
+                    <li><strong>Multi-Controller</strong> - Support for multiple ingress controllers in the same cluster</li>
+                    <li><strong>Class Isolation</strong> - Ingress class-based resource isolation and management</li>
+                </ul>
+                
+                <h4>Network Policies Security</h4>
+                <p>Implement and manage network security policies for pod-to-pod communication:</p>
+                
+                <div class="step-image">
+                    <img src="../images/network/network_policy.png" alt="Network Policies Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Network policies management provides:</p>
+                <ul>
+                    <li><strong>Traffic Control</strong> - Ingress and egress traffic rule configuration</li>
+                    <li><strong>Pod Selection</strong> - Label-based pod selection for policy application</li>
+                    <li><strong>Namespace Isolation</strong> - Network isolation between namespaces</li>
+                    <li><strong>Protocol Support</strong> - TCP, UDP, and SCTP protocol rule management</li>
+                    <li><strong>Security Enforcement</strong> - Default deny policies and security hardening</li>
+                </ul>
+                
+                <h4>Network Service Discovery</h4>
+                <p>Pilotwave+ provides comprehensive network service discovery and DNS management:</p>
+                <ul>
+                    <li><strong>DNS Integration</strong> - Kubernetes DNS service management and configuration</li>
+                    <li><strong>Service Discovery</strong> - Automatic service registration and discovery</li>
+                    <li><strong>Cross-Cluster Networking</strong> - Multi-cluster service mesh integration</li>
+                    <li><strong>Network Debugging</strong> - Network troubleshooting tools and diagnostics</li>
+                    <li><strong>Performance Monitoring</strong> - Network performance metrics and optimization</li>
+                </ul>
+                
+                <h4>Interactive Network Exploration</h4>
+                <p>Pilotwave+ enables detailed exploration of network resources. You can click on any network resource to access comprehensive information including:</p>
+                <ul>
+                    <li>Detailed network configurations and routing rules</li>
+                    <li>Real-time network traffic and connection status</li>
+                    <li>Service endpoints and backend pod relationships</li>
+                    <li>Network policy rules and security configurations</li>
+                    <li>DNS records and service discovery information</li>
+                    <li>Network troubleshooting and diagnostic tools</li>
+                </ul>
+                
+                <p>This interactive approach enables efficient network management, from basic connectivity to advanced traffic routing, with complete visibility into network behavior and security.</p>
+                
+                <h4>Key Network Management Features</h4>
+                <ul>
+                    <li><strong>Unified Dashboard</strong> - Single interface for all network resources</li>
+                    <li><strong>Real-Time Monitoring</strong> - Live network status and traffic monitoring</li>
+                    <li><strong>Multi-Protocol Support</strong> - HTTP, HTTPS, TCP, UDP, and gRPC protocol support</li>
+                    <li><strong>Security Integration</strong> - Network policies and security rule enforcement</li>
+                    <li><strong>Load Balancing</strong> - Advanced load balancing and traffic distribution</li>
+                    <li><strong>SSL/TLS Management</strong> - Certificate management and encryption handling</li>
+                    <li><strong>Multi-Cluster Networking</strong> - Cross-cluster network communication</li>
+                    <li><strong>Performance Optimization</strong> - Network performance insights and recommendations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

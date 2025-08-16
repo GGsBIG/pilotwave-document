@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Management - Pilotwave + Documentation</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">P+</div>
+            <span class="logo-text">Pilotwave +</span>
+        </div>
+        <div class="context-info">
+            <span class="context-label">Current context: </span>
+            <span class="context-value">Storage Management</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Documentation</h3>
+            </div>
+            <div class="sidebar-sections">
+                <div class="sidebar-item" onclick="window.location.href='../Installation/installation.html'">
+                    <span class="sidebar-title">Installation</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item active" onclick="window.location.href='../Cluster/cluster.html'">
+                    <span class="sidebar-title">Cluster</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../ServiceMesh/service-mesh.html'">
+                    <span class="sidebar-title">Service Mesh</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Extensions/extensions.html'">
+                    <span class="sidebar-title">Extensions</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Examples/grafana-example.html'">
+                    <span class="sidebar-title">Examples</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Migration/migration.html'">
+                    <span class="sidebar-title">Migration</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../FAQ/faq.html'">
+                    <span class="sidebar-title">FAQ</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="installation-content">
+                <h1>Storage Management</h1>
+                <h3>Comprehensive Persistent Storage Management with Pilotwave+</h3>
+                <p>Pilotwave+ provides robust storage management capabilities for Kubernetes, offering comprehensive control over persistent volumes, storage classes, and data persistence across your applications. The platform ensures reliable data management with intuitive interfaces for all storage operations.</p>
+                
+                <h4>Architecture Overview</h4>
+                <p>Pilotwave+ integrates seamlessly with Kubernetes storage systems to provide centralized storage management:</p>
+                
+                <div class="step-image">
+                    <img src="../images/struct/basic.png" alt="Pilotwave+ Architecture Overview" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The platform's three-tier architecture enables comprehensive storage management:</p>
+                <ul>
+                    <li><strong>Frontend</strong> - Intuitive user interface for storage visualization and management</li>
+                    <li><strong>Backend</strong> - Processing engine that handles storage operations and lifecycle management</li>
+                    <li><strong>Kubernetes SDK</strong> - Direct API integration for real-time storage monitoring and control</li>
+                </ul>
+                
+                <h4>Persistent Volumes Management</h4>
+                <p>Manage cluster storage volumes with comprehensive visibility into capacity, status, and lifecycle:</p>
+                
+                <div class="step-image">
+                    <img src="../images/storage/persistent_volumes.png" alt="Persistent Volumes Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The persistent volumes interface provides:</p>
+                <ul>
+                    <li><strong>Volume Status</strong> - Real-time binding status and availability monitoring</li>
+                    <li><strong>Capacity Management</strong> - Storage capacity tracking and utilization metrics</li>
+                    <li><strong>Access Modes</strong> - ReadWriteOnce, ReadOnlyMany, and ReadWriteMany configuration</li>
+                    <li><strong>Reclaim Policies</strong> - Delete, Retain, and Recycle policy management</li>
+                    <li><strong>Storage Classes</strong> - Integration with storage class provisioners</li>
+                </ul>
+                
+                <h4>Storage Classes Configuration</h4>
+                <p>Configure and manage storage provisioning classes for dynamic volume creation:</p>
+                
+                <div class="step-image">
+                    <img src="../images/storage/storage_classes.png" alt="Storage Classes Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Storage classes management includes:</p>
+                <ul>
+                    <li><strong>Provisioner Configuration</strong> - Support for various storage provisioners and CSI drivers</li>
+                    <li><strong>Volume Binding Modes</strong> - Immediate and WaitForFirstConsumer binding strategies</li>
+                    <li><strong>Reclaim Policies</strong> - Automatic lifecycle management for provisioned volumes</li>
+                    <li><strong>Default Classes</strong> - Default storage class configuration for seamless provisioning</li>
+                    <li><strong>Parameters</strong> - Custom provisioner parameters and storage-specific configurations</li>
+                </ul>
+                
+                <h4>Persistent Volume Claims Management</h4>
+                <p>Monitor and manage storage claims from applications with detailed binding and capacity information:</p>
+                
+                <div class="step-image">
+                    <img src="../images/storage/volume_claims.png" alt="Volume Claims Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Volume claims management provides:</p>
+                <ul>
+                    <li><strong>Claim Status</strong> - Bound, Pending, and Lost status tracking</li>
+                    <li><strong>Namespace Organization</strong> - Claims organized by namespace for better isolation</li>
+                    <li><strong>Volume Binding</strong> - Automatic matching with appropriate persistent volumes</li>
+                    <li><strong>Capacity Requests</strong> - Storage size requirements and actual allocated capacity</li>
+                    <li><strong>Access Mode Matching</strong> - Ensuring compatibility between claims and volumes</li>
+                </ul>
+                
+                <h4>Storage Lifecycle Management</h4>
+                <p>Pilotwave+ provides comprehensive storage lifecycle management capabilities:</p>
+                <ul>
+                    <li><strong>Dynamic Provisioning</strong> - Automatic volume creation based on storage classes</li>
+                    <li><strong>Static Provisioning</strong> - Manual volume creation and management</li>
+                    <li><strong>Volume Expansion</strong> - Online storage capacity expansion for supported storage types</li>
+                    <li><strong>Snapshot Management</strong> - Volume snapshots for backup and recovery operations</li>
+                    <li><strong>Clone Operations</strong> - Volume cloning for development and testing workflows</li>
+                </ul>
+                
+                <h4>Interactive Storage Exploration</h4>
+                <p>Pilotwave+ enables detailed exploration of storage resources. You can click on any storage resource to access comprehensive information including:</p>
+                <ul>
+                    <li>Detailed volume specifications and storage configurations</li>
+                    <li>Real-time usage metrics and performance monitoring</li>
+                    <li>Binding relationships between claims and volumes</li>
+                    <li>Storage class parameters and provisioner details</li>
+                    <li>Volume lifecycle events and troubleshooting information</li>
+                    <li>Backup and snapshot management options</li>
+                </ul>
+                
+                <p>This interactive approach enables efficient storage management, from capacity planning to troubleshooting, with complete visibility into storage utilization and performance.</p>
+                
+                <h4>Key Storage Management Features</h4>
+                <ul>
+                    <li><strong>Unified Dashboard</strong> - Single interface for all storage resources</li>
+                    <li><strong>Real-Time Monitoring</strong> - Live storage utilization and performance metrics</li>
+                    <li><strong>Multi-Storage Support</strong> - Support for various storage backends and CSI drivers</li>
+                    <li><strong>Capacity Planning</strong> - Storage usage analytics and capacity forecasting</li>
+                    <li><strong>Backup Integration</strong> - Volume snapshot and backup management</li>
+                    <li><strong>Performance Optimization</strong> - Storage performance insights and recommendations</li>
+                    <li><strong>Multi-Cluster Storage</strong> - Manage storage across multiple Kubernetes clusters</li>
+                    <li><strong>Security Compliance</strong> - Storage encryption and access control integration</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

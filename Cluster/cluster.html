@@ -56,10 +56,87 @@
         </div>
 
         <div class="content-area">
-            <h2>Cluster Management</h2>
-            <div class="content-placeholder">
-                <p>Cluster management content will be displayed here...</p>
-                <p>This section will contain information about managing Kubernetes clusters with Pilotwave +.</p>
+            <div class="installation-content">
+                <h1>Cluster Management</h1>
+                <h3>Comprehensive Kubernetes Cluster Management with Pilotwave+</h3>
+                <p>Pilotwave+ provides a unified interface for managing Kubernetes clusters, offering comprehensive visibility and control over your infrastructure. The platform integrates seamlessly with your existing Kubernetes environment to deliver powerful management capabilities.</p>
+                
+                <h4>Architecture Overview</h4>
+                <p>The following diagram illustrates the overall design architecture of Pilotwave+ and how it integrates with your Kubernetes clusters:</p>
+                
+                <div class="step-image">
+                    <img src="../images/struct/basic.png" alt="Pilotwave+ Architecture Overview" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Pilotwave+ consists of three main components:</p>
+                <ul>
+                    <li><strong>Frontend</strong> - User interface for cluster management and visualization</li>
+                    <li><strong>Backend</strong> - Core processing engine that handles cluster operations</li>
+                    <li><strong>Kubernetes SDK</strong> - Direct integration with Kubernetes APIs for real-time cluster interaction</li>
+                </ul>
+                
+                <p>This architecture enables Pilotwave+ to connect to multiple Kubernetes clusters simultaneously, providing centralized management capabilities across your entire infrastructure.</p>
+                
+                <h4>Cluster Resource Management</h4>
+                <p>Pilotwave+ offers detailed visibility into all aspects of your Kubernetes clusters. The platform provides comprehensive management interfaces for nodes, namespaces, and other critical cluster resources.</p>
+                
+                <h4>Node Management</h4>
+                <p>Monitor and manage your cluster nodes with real-time status information, resource utilization, and health monitoring:</p>
+                
+                <div class="step-image">
+                    <img src="../images/cluster/clusters/nodes.png" alt="Node Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The nodes interface displays:</p>
+                <ul>
+                    <li><strong>Node Status</strong> - Real-time health and readiness status</li>
+                    <li><strong>Role Information</strong> - Control plane and worker node identification</li>
+                    <li><strong>Kubelet Version</strong> - Version tracking for consistency management</li>
+                    <li><strong>Internal IP</strong> - Network configuration details</li>
+                    <li><strong>Age</strong> - Node lifecycle tracking</li>
+                </ul>
+                
+                <p>You can click on any node to view detailed information including resource consumption, running pods, system services, and configuration details.</p>
+                
+                <h4>Namespace Management</h4>
+                <p>Organize and manage cluster resources through namespace isolation and resource management:</p>
+                
+                <div class="step-image">
+                    <img src="../images/cluster/clusters/namespaces.png" alt="Namespace Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The namespace management interface provides:</p>
+                <ul>
+                    <li><strong>Namespace Status</strong> - Active status monitoring for all namespaces</li>
+                    <li><strong>Resource Isolation</strong> - Clear separation of workloads and resources</li>
+                    <li><strong>Label Management</strong> - Comprehensive labeling system for organization</li>
+                    <li><strong>Age Tracking</strong> - Namespace lifecycle information</li>
+                    <li><strong>Quick Actions</strong> - Direct access to namespace operations</li>
+                </ul>
+                
+                <p>Each namespace can be clicked to drill down into specific resources, including deployments, services, configmaps, secrets, and other Kubernetes objects within that namespace scope.</p>
+                
+                <h4>Interactive Resource Exploration</h4>
+                <p>Pilotwave+ enables interactive exploration of cluster resources. You can click on any resource to view detailed information, including:</p>
+                <ul>
+                    <li>Resource specifications and configurations</li>
+                    <li>Real-time status and health information</li>
+                    <li>Event logs and troubleshooting data</li>
+                    <li>Related resources and dependencies</li>
+                    <li>Performance metrics and resource usage</li>
+                </ul>
+                
+                <p>This interactive approach makes it easy to navigate complex cluster hierarchies and quickly identify issues or optimization opportunities.</p>
+                
+                <h4>Key Features</h4>
+                <ul>
+                    <li><strong>Multi-Cluster Support</strong> - Manage multiple Kubernetes clusters from a single interface</li>
+                    <li><strong>Real-Time Monitoring</strong> - Live updates of cluster status and resource health</li>
+                    <li><strong>Resource Discovery</strong> - Automatic detection and categorization of cluster resources</li>
+                    <li><strong>Interactive Navigation</strong> - Click-through exploration of resource relationships</li>
+                    <li><strong>Comprehensive Visibility</strong> - Complete overview of nodes, namespaces, and workloads</li>
+                    <li><strong>Intuitive Interface</strong> - User-friendly design for efficient cluster management</li>
+                </ul>
             </div>
         </div>
     </div>

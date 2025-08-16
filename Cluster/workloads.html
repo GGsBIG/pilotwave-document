@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workloads Management - Pilotwave + Documentation</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">P+</div>
+            <span class="logo-text">Pilotwave +</span>
+        </div>
+        <div class="context-info">
+            <span class="context-label">Current context: </span>
+            <span class="context-value">Workloads Management</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Documentation</h3>
+            </div>
+            <div class="sidebar-sections">
+                <div class="sidebar-item" onclick="window.location.href='../Installation/installation.html'">
+                    <span class="sidebar-title">Installation</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item active" onclick="window.location.href='../Cluster/cluster.html'">
+                    <span class="sidebar-title">Cluster</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../ServiceMesh/service-mesh.html'">
+                    <span class="sidebar-title">Service Mesh</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Extensions/extensions.html'">
+                    <span class="sidebar-title">Extensions</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Examples/grafana-example.html'">
+                    <span class="sidebar-title">Examples</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../Migration/migration.html'">
+                    <span class="sidebar-title">Migration</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+                <div class="sidebar-item" onclick="window.location.href='../FAQ/faq.html'">
+                    <span class="sidebar-title">FAQ</span>
+                    <span class="sidebar-arrow">▶</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="installation-content">
+                <h1>Workloads Management</h1>
+                <h3>Comprehensive Application Deployment and Management with Pilotwave+</h3>
+                <p>Pilotwave+ provides powerful workload management capabilities for deploying, monitoring, and managing applications across your Kubernetes clusters. The platform offers intuitive interfaces for handling all types of Kubernetes workloads with comprehensive visibility and control.</p>
+                
+                <h4>Architecture Overview</h4>
+                <p>Pilotwave+ integrates seamlessly with your Kubernetes infrastructure to provide centralized workload management:</p>
+                
+                <div class="step-image">
+                    <img src="../images/struct/basic.png" alt="Pilotwave+ Architecture Overview" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The platform's three-tier architecture enables comprehensive workload management:</p>
+                <ul>
+                    <li><strong>Frontend</strong> - Intuitive user interface for workload visualization and management</li>
+                    <li><strong>Backend</strong> - Processing engine that handles workload operations and state management</li>
+                    <li><strong>Kubernetes SDK</strong> - Direct API integration for real-time workload monitoring and control</li>
+                </ul>
+                
+                <h4>Workloads Overview</h4>
+                <p>Get a comprehensive view of all workloads running across your Kubernetes clusters:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/overview.png" alt="Workloads Overview Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The workloads overview provides centralized visibility into all your application deployments, allowing you to quickly assess the health and status of your entire application ecosystem.</p>
+                
+                <h4>Deployments Management</h4>
+                <p>Manage application deployments with advanced deployment strategies, scaling, and lifecycle management:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/deployments.png" alt="Deployments Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>The deployments interface enables:</p>
+                <ul>
+                    <li><strong>Deployment Lifecycle</strong> - Create, update, and delete deployments with rolling updates</li>
+                    <li><strong>Scaling Operations</strong> - Horizontal scaling with replica management</li>
+                    <li><strong>Health Monitoring</strong> - Real-time status tracking and readiness checks</li>
+                    <li><strong>Version Control</strong> - Rollback capabilities and deployment history</li>
+                </ul>
+                
+                <h4>Pods Management</h4>
+                <p>Monitor and manage individual pods with detailed status information and troubleshooting capabilities:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/pods.png" alt="Pods Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Pod management features include:</p>
+                <ul>
+                    <li><strong>Pod Status</strong> - Real-time lifecycle status and health indicators</li>
+                    <li><strong>Resource Usage</strong> - CPU, memory, and storage consumption monitoring</li>
+                    <li><strong>Log Access</strong> - Container logs and troubleshooting information</li>
+                    <li><strong>Container Details</strong> - Image information, environment variables, and configurations</li>
+                </ul>
+                
+                <h4>StatefulSets Management</h4>
+                <p>Handle stateful applications with persistent storage and ordered deployment requirements:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/statefulsets.png" alt="StatefulSets Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>StatefulSets provide:</p>
+                <ul>
+                    <li><strong>Ordered Deployment</strong> - Sequential pod creation and termination</li>
+                    <li><strong>Persistent Storage</strong> - Stable network identities and storage claims</li>
+                    <li><strong>State Management</strong> - Maintenance of application state across restarts</li>
+                    <li><strong>Scaling Control</strong> - Careful scaling operations for stateful workloads</li>
+                </ul>
+                
+                <h4>DaemonSets Management</h4>
+                <p>Deploy system-level services that need to run on every node in your cluster:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/daemonsets.png" alt="DaemonSets Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>DaemonSets are ideal for:</p>
+                <ul>
+                    <li><strong>Node-Level Services</strong> - Logging, monitoring, and network services</li>
+                    <li><strong>System Daemons</strong> - Security agents and storage drivers</li>
+                    <li><strong>Cluster Services</strong> - DNS, ingress controllers, and CNI plugins</li>
+                    <li><strong>Automatic Scheduling</strong> - Automatic deployment on new nodes</li>
+                </ul>
+                
+                <h4>Job Management</h4>
+                <p>Execute batch processing tasks and one-time operations with job management:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/jobs.png" alt="Jobs Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>Job management capabilities:</p>
+                <ul>
+                    <li><strong>Batch Processing</strong> - Execute data processing and migration tasks</li>
+                    <li><strong>Completion Tracking</strong> - Monitor job progress and completion status</li>
+                    <li><strong>Retry Logic</strong> - Automatic restart on failure with backoff policies</li>
+                    <li><strong>Parallel Execution</strong> - Configure parallelism for faster processing</li>
+                </ul>
+                
+                <h4>CronJobs Scheduling</h4>
+                <p>Schedule recurring tasks and automated operations with CronJob management:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/cornjobs.png" alt="CronJobs Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>CronJob features include:</p>
+                <ul>
+                    <li><strong>Scheduled Execution</strong> - Cron-based scheduling for recurring tasks</li>
+                    <li><strong>Job Templates</strong> - Reusable job configurations for scheduled runs</li>
+                    <li><strong>History Management</strong> - Track successful and failed job executions</li>
+                    <li><strong>Concurrency Control</strong> - Manage overlapping job execution policies</li>
+                </ul>
+                
+                <h4>ReplicaSets Monitoring</h4>
+                <p>Monitor and manage ReplicaSets that ensure the desired number of pod replicas:</p>
+                
+                <div class="step-image">
+                    <img src="../images/workloads/replicasets.png" alt="ReplicaSets Management Interface" style="width: 100%; max-width: 1000px; margin: 20px 0;" />
+                </div>
+                
+                <p>ReplicaSet management provides:</p>
+                <ul>
+                    <li><strong>Replica Control</strong> - Ensure desired pod count is maintained</li>
+                    <li><strong>Pod Selection</strong> - Label-based pod selection and management</li>
+                    <li><strong>Health Monitoring</strong> - Track replica availability and readiness</li>
+                    <li><strong>Scaling Operations</strong> - Dynamic replica count adjustments</li>
+                </ul>
+                
+                <h4>Interactive Workload Exploration</h4>
+                <p>Pilotwave+ enables detailed exploration of workload resources. You can click on any workload to access comprehensive information including:</p>
+                <ul>
+                    <li>Detailed workload specifications and configurations</li>
+                    <li>Real-time status, health checks, and performance metrics</li>
+                    <li>Container logs, events, and troubleshooting information</li>
+                    <li>Resource relationships and dependency mapping</li>
+                    <li>Scaling history and deployment timeline</li>
+                    <li>Resource consumption and optimization recommendations</li>
+                </ul>
+                
+                <p>This interactive approach enables efficient workload management, from development to production, with complete visibility into application behavior and performance.</p>
+                
+                <h4>Key Workload Management Features</h4>
+                <ul>
+                    <li><strong>Unified Interface</strong> - Single dashboard for all workload types</li>
+                    <li><strong>Real-Time Monitoring</strong> - Live status updates and health indicators</li>
+                    <li><strong>Scaling Automation</strong> - Horizontal and vertical scaling capabilities</li>
+                    <li><strong>Log Integration</strong> - Centralized logging and troubleshooting</li>
+                    <li><strong>Resource Optimization</strong> - Performance insights and optimization recommendations</li>
+                    <li><strong>Deployment Strategies</strong> - Rolling updates, blue-green, and canary deployments</li>
+                    <li><strong>Multi-Cluster Support</strong> - Manage workloads across multiple Kubernetes clusters</li>
+                    <li><strong>Security Integration</strong> - Pod security policies and network isolation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
